@@ -1,0 +1,37 @@
+{
+    "navbar": {
+        "login": "Bejelentkezés",
+        "register": "Regisztráció",
+        "logout": "Kijelentkezés",
+        "profile": "Profil"
+    },
+    "notFound": {
+        "title": "404 - Page not found.",
+        "message": "The page you are looking for does not exist.",
+        "buttontext": "Home"
+    },
+    "unathorized": {
+        "title": "403 - Nincs jogosultsága megtekinteni ezt az oldalt.",
+        "message": "Nincs jogosultsága megtekinteni ezt az oldalt.",
+        "buttontext": "Vissza a főoldalra"
+    },
+    "login": {
+        "title": "Bejelentkezés",
+        "email": "Email",
+        "email_placeholder": "Adja meg az email címét",
+        "password": "Jelszó",
+        "password_placeholder": "Adja meg a jelszavát",
+        "buttontext": "Bejelentkezés",
+        "buttontext_loading": "Bejelentkezés folyamatban..."
+    },
+    "register": {
+        "title": "Regisztráció",
+        "email": "Email",
+        "emailPlaceholder": "Adja meg az email címét",
+        "lastName": "Vezetéknév",
+        "firstName": "Keresztnév",
+        "submitButton": "Regisztráció",
+        "password": "Jelszó",
+        "passwordConfirmation": "Jelszó megerősítése"
+    }
+}

@@ -1,0 +1,37 @@
+{
+    "navbar": {
+        "login": "Login",
+        "logout": "Logout",
+        "register": "Register",
+        "profile": "Profile"
+    },
+    "notFound": {
+        "title": "404 - Az oldal nem található.",
+        "message": "A keresett oldal nem található.",
+        "buttontext": "Vissza a főoldalra"
+    },
+    "unathorized": {
+        "title": "403 - You are not authorized to view this page.",
+        "message": "You don't have permission to access this page.",
+        "buttontext": "Home"
+    },
+    "login": {
+        "title": "Login",
+        "email": "Email",
+        "email_placeholder": "Enter your email",
+        "password": "Password",
+        "password_placeholder": "Enter your password",
+        "buttontext": "Login",
+        "buttontext_loading": "Logging in..."
+    },
+    "register": {
+        "title": "Register",
+        "email": "Email",
+        "emailPlaceholder": "Enter your email",
+        "lastName": "Last Name",
+        "firstName": "First Name",
+        "submitButton": "Register",
+        "password": "Password",
+        "passwordConfirmation": "Confirm Password"
+    }
+}

@@ -33,5 +33,16 @@
         "submitButton": "Register",
         "password": "Password",
         "passwordConfirmation": "Confirm Password"
+    },
+    "profile": {
+        "title": "Profile",
+        "country": "Country",
+        "city": "City",
+        "postalCode": "Postal Code",
+        "address": "Address",
+        "bankAccountNumber": "Bank Account Number (IBAN)",
+        "empty": "Not provided",
+        "newPlaceholder": "New value...",
+        "save": "Save"
     }
 }

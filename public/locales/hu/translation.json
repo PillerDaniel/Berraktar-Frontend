@@ -33,5 +33,16 @@
         "submitButton": "Regisztráció",
         "password": "Jelszó",
         "passwordConfirmation": "Jelszó megerősítése"
+    },
+    "profile": {
+        "title": "Profil",
+        "country": "Ország",
+        "city": "Város",
+        "postalCode": "Irányítószám",
+        "address": "Cím",
+        "bankAccountNumber": "Bankszámlaszám (IBAN)",
+        "empty": "Nincs megadva",
+        "newPlaceholder": "Új érték...",
+        "save": "Mentés"
     }
 }

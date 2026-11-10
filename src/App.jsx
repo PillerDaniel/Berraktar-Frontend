@@ -17,6 +17,7 @@ import NotFound from '../src/pages/NotFound';
 import Unauthorized from '../src/pages/Unauthorized';
 import Login from '../src/pages/Login';
 import Register from '../src/pages/Register';
+import Profile from './pages/Profile';
 
 function App() {
     return (
@@ -34,17 +35,17 @@ function App() {
                             <Route path="/" element={<Landing />} />
                             <Route path="/login" element={<Login />} />
                             <Route path="/register" element={<Register />} />
-                            {/* 
-                            <Route
-                                path="/admin"
-                                element={
-                                    <ProtectedRoute
-                                        element={<Admin />}
-                                        allowedRoles={['admin']}
-                                    />
-                                }
-                            />
-                            */}
+                            {
+                                <Route
+                                    path="/profile"
+                                    element={
+                                        <ProtectedRoute
+                                            element={<Profile />}
+                                            allowedRoles={['user', 'admin']}
+                                        />
+                                    }
+                                />
+                            }
                         </Routes>
                     </main>
                 </Router>

@@ -47,7 +47,7 @@ const WareHousesPage = () => {
     return (
         <div className="p-6">
             {isAuthenticated && user?.role === 'admin' && (
-                <div className="flex justify-end mb-6">
+                <div className="flex flex-wrap justify-end gap-3 mb-6">
                     <button
                         type="button"
                         onClick={() => navigate('/add-warehouse')}
@@ -55,6 +55,15 @@ const WareHousesPage = () => {
                     >
                         <PlusCircle size={18} weight="bold" />
                         {t('warehouse.addNew')}
+                    </button>
+
+                    <button
+                        type="button"
+                        onClick={() => navigate('/add-shelf')}
+                        className="inline-flex items-center gap-2 px-5 py-2.5 bg-green-700 hover:bg-green-600 text-white text-sm font-semibold rounded-lg transition-all shadow-sm active:scale-95 cursor-pointer"
+                    >
+                        <PlusCircle size={18} weight="bold" />
+                        {t('shelf.addNew')}
                     </button>
                 </div>
             )}

@@ -72,7 +72,13 @@
         "address": "Cím",
         "activeStatus": "Aktív státusz",
         "saveChanges": "Változások mentése",
-        "addNew": "Új raktár hozzáadása"
+        "addNew": "Új raktár hozzáadása",
+        "createTitle": "Új raktár létrehozása",
+        "activeCreateHint": "Ha a raktár aktív, akkor a létrehozás után azonnal használható lesz. Ha inaktív, akkor nem lesz használható, amíg nem aktiválják.",
+        "cityPlaceholder": "Add meg a várost",
+        "addressPlaceholder": "Add meg a címet",
+        "countryPlaceholder": "Add meg az országot",
+        "createSubmit": "Raktár létrehozása"
     },
     "shelf": {
         "type": {
@@ -80,6 +86,26 @@
             "none": "Normál"
         },
         "typeLabel": "Típus:",
-        "capacityLabel": "Kapacitás:"
+        "capacityLabel": "Kapacitás:",
+        "addNew": "Új polc hozzáadása",
+        "createTitle": "Új polc létrehozása",
+        "selectWarehouse": "Raktár kiválasztása",
+        "warehousePlaceholder": "Válassz raktárat...",
+        "capacityPlaceholder": "Pl. 20",
+        "wareHouseLabel": "Raktár:",
+        "statusLabel": "Állapot:",
+        "status": {
+            "active": "Aktív",
+            "unused": "Használaton kívüli"
+        },
+        "createSubmit": "Polc létrehozása",
+        "edit": "Szerkesztés",
+        "editTitle": "Polc szerkesztése"
+    },
+    "config": {
+        "title": "Rendszer konfiguráció",
+        "unitPrice": "Egységár",
+        "refrigeratedMultiplier": "Hűtött szorzó",
+        "save": "Mentés"
     }
 }

@@ -1,7 +1,213 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import axiosInstance from '../utils/axios';
+import { useNavigate } from 'react-router';
+import {
+    House,
+    GlobeHemisphereWest,
+    Buildings,
+    MapPin,
+    PlusCircle,
+    ArrowLeft,
+    ToggleRight,
+} from 'phosphor-react';
+
+import { useAuth } from '../contexts/AuthContext';
+import { useTranslation } from 'react-i18next';
 
 const CreateWareHousePage = () => {
-    return <div>asd</div>;
+    const navigate = useNavigate();
+    const { showError, showSuccess } = useAuth();
+    const { t, i18n } = useTranslation();
+    const language = i18n.language?.startsWith('hu') ? 'hu' : 'en';
+
+    const [submitting, setSubmitting] = useState(false);
+    const [wareHouse, setWareHouse] = useState({
+        country: '',
+        city: '',
+        address: '',
+        active: false,
+    });
+
+    const handleChange = (e) => {
+        const { name, value, type, checked } = e.target;
+        setWareHouse((prev) => ({
+            ...prev,
+            [name]: type === 'checkbox' ? checked : value,
+        }));
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setSubmitting(true);
+
+        try {
+            const payload = {
+                country: wareHouse.country.trim(),
+                city: wareHouse.city.trim(),
+                address: wareHouse.address.trim(),
+                active: Boolean(wareHouse.active),
+            };
+
+            const response = await axiosInstance.post(
+                '/admin/warehouse',
+                payload
+            );
+
+            language === 'hu'
+                ? showSuccess(
+                      language,
+                      response.data?.messageHu ||
+                          'Az új raktár sikeresen létrehozva!'
+                  )
+                : showSuccess(
+                      language,
+                      response.data?.messageEn ||
+                          'Warehouse created successfully!'
+                  );
+
+            if (response.data?.warehouse?.id) {
+                navigate(`/warehouses/${response.data.warehouse.id}`);
+            } else {
+                navigate(-1);
+            }
+        } catch (error) {
+            language === 'hu'
+                ? showError(
+                      language,
+                      error.response?.data?.messageHu ||
+                          'Hiba a raktár létrehozása során!'
+                  )
+                : showError(
+                      language,
+                      error.response?.data?.messageEn ||
+                          'Failed to create warehouse!'
+                  );
+        } finally {
+            setSubmitting(false);
+        }
+    };
+
+    return (
+        <div className="max-w-2xl mx-auto my-10 px-4">
+            <button
+                type="button"
+                onClick={() => navigate(-1)}
+                className="inline-flex items-center gap-2 mb-6 text-sm font-semibold text-[#27374D] hover:text-[#526d82] transition-colors cursor-pointer"
+            >
+                <ArrowLeft size={18} weight="bold" />
+                {t('warehouse.backToWarehouses')}
+            </button>
+
+            <div className="p-6 bg-white rounded-xl shadow-lg border border-gray-100">
+                <div className="flex items-center gap-3 mb-8 border-b border-gray-100 pb-4">
+                    <div className="bg-[#27374D] p-2.5 rounded-lg text-white">
+                        <House size={28} weight="duotone" />
+                    </div>
+                    <div>
+                        <h2 className="text-2xl font-bold text-[#27374D]">
+                            {t('warehouse.createTitle')}
+                        </h2>
+                    </div>
+                </div>
+
+                <form onSubmit={handleSubmit} className="flex flex-col gap-5">
+                    <div>
+                        <label className="flex items-center gap-2 text-sm font-semibold text-[#27374D] mb-2">
+                            <GlobeHemisphereWest size={18} />
+                            {t('warehouse.country')}
+                        </label>
+                        <input
+                            type="text"
+                            name="country"
+                            required
+                            value={wareHouse.country}
+                            onChange={handleChange}
+                            className="w-full p-3 bg-[#27374D] text-white placeholder-gray-400 border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#526D82] outline-none transition-all"
+                            placeholder={t('warehouse.countryPlaceholder')}
+                        />
+                    </div>
+
+                    <div>
+                        <label className="flex items-center gap-2 text-sm font-semibold text-[#27374D] mb-2">
+                            <Buildings size={18} />
+                            {t('warehouse.city')}
+                        </label>
+                        <input
+                            type="text"
+                            name="city"
+                            required
+                            value={wareHouse.city}
+                            onChange={handleChange}
+                            className="w-full p-3 bg-[#27374D] text-white placeholder-gray-400 border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#526D82] outline-none transition-all"
+                            placeholder={t('warehouse.cityPlaceholder')}
+                        />
+                    </div>
+
+                    <div>
+                        <label className="flex items-center gap-2 text-sm font-semibold text-[#27374D] mb-2">
+                            <MapPin size={18} />
+                            {t('warehouse.address')}
+                        </label>
+                        <input
+                            type="text"
+                            name="address"
+                            required
+                            value={wareHouse.address}
+                            onChange={handleChange}
+                            className="w-full p-3 bg-[#27374D] text-white placeholder-gray-400 border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#526D82] outline-none transition-all"
+                            placeholder={t('warehouse.addressPlaceholder')}
+                        />
+                    </div>
+
+                    <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg border border-gray-200">
+                        <div className="flex items-center gap-2.5">
+                            <ToggleRight
+                                size={22}
+                                className="text-[#27374D]"
+                                weight="duotone"
+                            />
+                            <div>
+                                <span className="text-sm font-semibold text-[#27374D] block">
+                                    {t('warehouse.activeStatus')}
+                                </span>
+                                <span className="text-xs text-gray-500">
+                                    {t('warehouse.activeCreateHint')}
+                                </span>
+                            </div>
+                        </div>
+
+                        <label className="relative inline-flex items-center cursor-pointer">
+                            <input
+                                type="checkbox"
+                                name="active"
+                                checked={wareHouse.active}
+                                onChange={handleChange}
+                                className="sr-only peer"
+                            />
+                            <div className="w-11 h-6 bg-gray-300 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-[#526D82] rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-emerald-600"></div>
+                        </label>
+                    </div>
+
+                    <div className="mt-2">
+                        <button
+                            type="submit"
+                            disabled={submitting}
+                            className="w-full bg-[#27374D] hover:bg-[#1e2b3c] text-white font-bold py-3.5 rounded-lg transition-all shadow-md active:scale-[0.99] disabled:opacity-70 flex items-center justify-center gap-2 cursor-pointer"
+                        >
+                            {submitting ? (
+                                <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                            ) : (
+                                <>
+                                    <PlusCircle size={20} weight="bold" />
+                                    {t('warehouse.createSubmit')}
+                                </>
+                            )}
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    );
 };
 
 export default CreateWareHousePage;

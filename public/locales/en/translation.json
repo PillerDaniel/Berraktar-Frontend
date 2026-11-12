@@ -72,7 +72,13 @@
         "address": "Address",
         "activeStatus": "Active Status",
         "saveChanges": "Save Changes",
-        "addNew": "Add New Warehouse"
+        "addNew": "Add New Warehouse",
+        "createTitle": "Create New Warehouse",
+        "activeCreateHint": "If the warehouse is active, it will be available for use immediately after creation. If it is inactive, it will not be available for use until it is activated.",
+        "cityPlaceholder": "Enter the city",
+        "addressPlaceholder": "Enter the address",
+        "countryPlaceholder": "Enter the country",
+        "createSubmit": "Create Warehouse"
     },
     "shelf": {
         "type": {
@@ -80,6 +86,26 @@
             "none": "Standard"
         },
         "typeLabel": "Type:",
-        "capacityLabel": "Capacity:"
+        "capacityLabel": "Capacity:",
+        "addNew": "Add New Shelf",
+        "createTitle": "Create New Shelf",
+        "selectWarehouse": "Warehouse",
+        "warehousePlaceholder": "Select a warehouse",
+        "capacityPlaceholder": "E.g. 20",
+        "wareHouseLabel": "Warehouse:",
+        "statusLabel": "Status:",
+        "status": {
+            "active": "Active",
+            "unused": "Inactive"
+        },
+        "createSubmit": "Create Shelf",
+        "edit": "Edit",
+        "editTitle": "Edit Shelf"
+    },
+    "config": {
+        "title": "System Configuration",
+        "unitPrice": "Unit Price",
+        "refrigeratedMultiplier": "Refrigerated Multiplier",
+        "save": "Save"
     }
 }

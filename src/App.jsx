@@ -23,6 +23,8 @@ import WareHousePage from './pages/WareHousePage';
 import EditWareHousePage from './pages/EditWareHousePage';
 import ConfigPage from './pages/ConfigPage';
 import CreateWareHousePage from './pages/CreateWareHousePage';
+import CreateShelfPage from './pages/CreateShelfPage';
+import EditShelfPage from './pages/EditShelfPage';
 
 function App() {
     return (
@@ -80,6 +82,24 @@ function App() {
                                 element={
                                     <ProtectedRoute
                                         element={<CreateWareHousePage />}
+                                        allowedRoles={['admin']}
+                                    />
+                                }
+                            />
+                            <Route
+                                path="/add-shelf"
+                                element={
+                                    <ProtectedRoute
+                                        element={<CreateShelfPage />}
+                                        allowedRoles={['admin']}
+                                    />
+                                }
+                            />
+                            <Route
+                                path="/shelves/:id/edit"
+                                element={
+                                    <ProtectedRoute
+                                        element={<EditShelfPage />}
                                         allowedRoles={['admin']}
                                     />
                                 }

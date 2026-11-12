@@ -18,6 +18,11 @@ import Unauthorized from '../src/pages/Unauthorized';
 import Login from '../src/pages/Login';
 import Register from '../src/pages/Register';
 import Profile from './pages/Profile';
+import WareHousesPage from './pages/WareHousesPage';
+import WareHousePage from './pages/WareHousePage';
+import EditWareHousePage from './pages/EditWareHousePage';
+import ConfigPage from './pages/ConfigPage';
+import CreateWareHousePage from './pages/CreateWareHousePage';
 
 function App() {
     return (
@@ -35,17 +40,50 @@ function App() {
                             <Route path="/" element={<Landing />} />
                             <Route path="/login" element={<Login />} />
                             <Route path="/register" element={<Register />} />
-                            {
-                                <Route
-                                    path="/profile"
-                                    element={
-                                        <ProtectedRoute
-                                            element={<Profile />}
-                                            allowedRoles={['user', 'admin']}
-                                        />
-                                    }
-                                />
-                            }
+                            <Route
+                                path="/profile"
+                                element={
+                                    <ProtectedRoute
+                                        element={<Profile />}
+                                        allowedRoles={['user', 'admin']}
+                                    />
+                                }
+                            />
+                            <Route
+                                path="/warehouses"
+                                element={<WareHousesPage />}
+                            />
+                            <Route
+                                path="/warehouses/:id"
+                                element={<WareHousePage />}
+                            />
+                            <Route
+                                path="/warehouses/:id/edit"
+                                element={
+                                    <ProtectedRoute
+                                        element={<EditWareHousePage />}
+                                        allowedRoles={['admin']}
+                                    />
+                                }
+                            />
+                            <Route
+                                path="/config"
+                                element={
+                                    <ProtectedRoute
+                                        element={<ConfigPage />}
+                                        allowedRoles={['admin']}
+                                    />
+                                }
+                            />
+                            <Route
+                                path="/add-warehouse"
+                                element={
+                                    <ProtectedRoute
+                                        element={<CreateWareHousePage />}
+                                        allowedRoles={['admin']}
+                                    />
+                                }
+                            />
                         </Routes>
                     </main>
                 </Router>

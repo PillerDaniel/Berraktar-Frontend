@@ -3,7 +3,9 @@
         "login": "Bejelentkezés",
         "register": "Regisztráció",
         "logout": "Kijelentkezés",
-        "profile": "Profil"
+        "profile": "Profil",
+        "warehouses": "Raktárak",
+        "config": "Konfiguráció"
     },
     "notFound": {
         "title": "404 - Page not found.",
@@ -44,5 +46,40 @@
         "empty": "Nincs megadva",
         "newPlaceholder": "Új érték...",
         "save": "Mentés"
+    },
+    "warehouse": {
+        "active": "Aktív",
+        "inactive": "Inaktív",
+        "details": "Részletek",
+        "backToWarehouses": "Vissza a raktárakhoz",
+        "notFound": "A keresett raktár nem található.",
+        "totalShelfs": "Összes polc:",
+        "totalCapacity": "Raklap kapacitás:",
+        "shelfsTitle": "Raktárban található polcok",
+        "noShelfs": "Ehhez a raktárhoz még nincsenek polcok rendelve.",
+        "typeLabel": "Típus:",
+        "capacityLabel": "Kapacitás:",
+        "type": {
+            "refrigerated": "Hűtött",
+            "none": "Normál"
+        },
+        "back": "Vissza",
+        "edit": "Szerkesztés",
+        "backtoDetails": "Vissza a részletekhez",
+        "editTitle": "Raktár szerkesztése",
+        "country": "Ország",
+        "city": "Város",
+        "address": "Cím",
+        "activeStatus": "Aktív státusz",
+        "saveChanges": "Változások mentése",
+        "addNew": "Új raktár hozzáadása"
+    },
+    "shelf": {
+        "type": {
+            "refrigerated": "Hűtött",
+            "none": "Normál"
+        },
+        "typeLabel": "Típus:",
+        "capacityLabel": "Kapacitás:"
     }
 }

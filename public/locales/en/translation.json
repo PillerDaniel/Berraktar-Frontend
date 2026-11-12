@@ -3,7 +3,9 @@
         "login": "Login",
         "logout": "Logout",
         "register": "Register",
-        "profile": "Profile"
+        "profile": "Profile",
+        "warehouses": "Warehouses",
+        "config": "Configuration"
     },
     "notFound": {
         "title": "404 - Az oldal nem található.",
@@ -44,5 +46,40 @@
         "empty": "Not provided",
         "newPlaceholder": "New value...",
         "save": "Save"
+    },
+    "warehouse": {
+        "active": "Active",
+        "inactive": "Inactive",
+        "details": "Details",
+        "backToWarehouses": "Back to warehouses",
+        "notFound": "The requested warehouse could not be found.",
+        "totalShelfs": "Total shelves:",
+        "totalCapacity": "Pallet capacity:",
+        "shelfsTitle": "Shelves in this warehouse",
+        "noShelfs": "No shelves have been assigned to this warehouse yet.",
+        "typeLabel": "Type:",
+        "capacityLabel": "Capacity:",
+        "type": {
+            "refrigerated": "Refrigerated",
+            "none": "Standard"
+        },
+        "back": "Back",
+        "edit": "Edit",
+        "backToDetails": "Back to details",
+        "editTitle": "Edit Warehouse",
+        "country": "Country",
+        "city": "City",
+        "address": "Address",
+        "activeStatus": "Active Status",
+        "saveChanges": "Save Changes",
+        "addNew": "Add New Warehouse"
+    },
+    "shelf": {
+        "type": {
+            "refrigerated": "Refrigerated",
+            "none": "Standard"
+        },
+        "typeLabel": "Type:",
+        "capacityLabel": "Capacity:"
     }
 }

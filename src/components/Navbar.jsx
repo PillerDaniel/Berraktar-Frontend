@@ -100,6 +100,12 @@ const Navbar = () => {
                             <div className="hidden sm:ml-6 sm:block">
                                 <div className="flex space-x-4">
                                     <Link
+                                        to="/booking"
+                                        className="text-gray-300 hover:bg-white/5 hover:text-white rounded-md px-3 py-2 text-sm font-medium transition-colors"
+                                    >
+                                        {t('navbar.booking')}
+                                    </Link>
+                                    <Link
                                         to="proba"
                                         className="text-gray-300 hover:bg-white/5 hover:text-white rounded-md px-3 py-2 text-sm font-medium transition-colors"
                                     >
@@ -248,6 +254,14 @@ const Navbar = () => {
             {isAuthenticated && (
                 <DisclosurePanel className="sm:hidden bg-[#27374D] backdrop-blur-sm">
                     <div className="space-y-1 px-2 pt-2 pb-3">
+                        {isAuthenticated && UserAccess.includes(user.role) && (
+                            <Link
+                                to="/booking"
+                                className="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-white/5 hover:text-white"
+                            >
+                                {t('navbar.booking')}
+                            </Link>
+                        )}
                         {isAuthenticated && UserAccess.includes(user.role) && (
                             <Link
                                 to="/proba"

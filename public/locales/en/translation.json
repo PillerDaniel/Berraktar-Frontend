@@ -5,7 +5,8 @@
         "register": "Register",
         "profile": "Profile",
         "warehouses": "Warehouses",
-        "config": "Configuration"
+        "config": "Configuration",
+        "booking": "Booking"
     },
     "notFound": {
         "title": "404 - Az oldal nem található.",
@@ -107,5 +108,65 @@
         "unitPrice": "Unit Price",
         "refrigeratedMultiplier": "Refrigerated Multiplier",
         "save": "Save"
+    },
+    "booking": {
+        "title": "Book warehouse space",
+        "balance": "Balance",
+        "startDate": "Start date",
+        "endDate": "End date",
+        "pallets": "Number of pallets",
+        "palletsPlaceholder": "e.g. 20",
+        "type": "Storage type",
+        "typeNone": "Standard",
+        "typeRefrigerated": "Refrigerated",
+        "warehouse": "Warehouse",
+        "anyWarehouse": "Any warehouse",
+        "calculate": "Calculate price",
+        "quoteTitle": "Calculated price",
+        "period": "Period",
+        "days_one": "{{count}} day",
+        "days_other": "{{count}} days",
+        "unitPrice": "Price per pallet per day",
+        "total": "Total to pay",
+        "insufficient": "Insufficient balance: {{amount}} more is needed. Top up your balance to pay.",
+        "pay": "Confirm and pay",
+        "paySuccess": "Booking created successfully.",
+        "payError": "Payment failed.",
+        "quoteError": "Could not calculate the price.",
+        "loadError": "Could not load the data.",
+        "deposit": "Top up balance",
+        "depositAmount": "Amount (HUF)",
+        "depositButton": "Top up",
+        "depositSuccess": "Balance topped up.",
+        "depositError": "Top-up failed.",
+        "myBookings": "My bookings",
+        "noBookings": "You have no bookings yet.",
+        "palletCount_one": "{{count}} pallet",
+        "palletCount_other": "{{count}} pallets",
+        "receipt": {
+            "open": "Receipt",
+            "title": "Receipt",
+            "number": "ID",
+            "issuedAt": "Issued",
+            "buyer": "Customer",
+            "paymentMethod": "Payment method",
+            "wallet": "Wallet balance",
+            "items": "Item",
+            "storage": "Warehouse space rental ({{type}})",
+            "shelves": "Shelves assigned: {{count}}",
+            "total": "Total paid",
+            "close": "Close",
+            "status": {
+                "paid": "Paid",
+                "pending": "Awaiting payment",
+                "refunded": "Refunded"
+            }
+        },
+        "status": {
+            "pending": "Awaiting delivery",
+            "stored": "Stored",
+            "closed": "Closed",
+            "cancelled": "Cancelled"
+        }
     }
 }

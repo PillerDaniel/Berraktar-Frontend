@@ -5,7 +5,8 @@
         "logout": "Kijelentkezés",
         "profile": "Profil",
         "warehouses": "Raktárak",
-        "config": "Konfiguráció"
+        "config": "Konfiguráció",
+        "booking": "Foglalás"
     },
     "notFound": {
         "title": "404 - Page not found.",
@@ -107,5 +108,63 @@
         "unitPrice": "Egységár",
         "refrigeratedMultiplier": "Hűtött szorzó",
         "save": "Mentés"
+    },
+    "booking": {
+        "title": "Raktárterület foglalása",
+        "balance": "Egyenleg",
+        "startDate": "Kezdődátum",
+        "endDate": "Végdátum",
+        "pallets": "Raklapok száma",
+        "palletsPlaceholder": "pl. 20",
+        "type": "Tárolás típusa",
+        "typeNone": "Normál",
+        "typeRefrigerated": "Hűtött",
+        "warehouse": "Raktár",
+        "anyWarehouse": "Bármelyik raktár",
+        "calculate": "Díj kiszámítása",
+        "quoteTitle": "Kiszámolt díj",
+        "period": "Időszak",
+        "days": "{{count}} nap",
+        "unitPrice": "Díj raklaponként, naponta",
+        "total": "Fizetendő összesen",
+        "insufficient": "Nincs elég egyenleg: még {{amount}} hiányzik. Töltse fel az egyenlegét a fizetéshez.",
+        "pay": "Jóváhagyás és fizetés",
+        "paySuccess": "A foglalás sikeresen létrejött.",
+        "payError": "A fizetés sikertelen.",
+        "quoteError": "A díj kiszámítása sikertelen.",
+        "loadError": "Nem sikerült betölteni az adatokat.",
+        "deposit": "Egyenleg feltöltése",
+        "depositAmount": "Összeg (Ft)",
+        "depositButton": "Feltöltés",
+        "depositSuccess": "Az egyenleg feltöltve.",
+        "depositError": "A feltöltés sikertelen.",
+        "myBookings": "Foglalásaim",
+        "noBookings": "Még nincs foglalása.",
+        "palletCount": "{{count}} raklap",
+        "receipt": {
+            "open": "Nyugta",
+            "title": "Nyugta",
+            "number": "Azonosító",
+            "issuedAt": "Kiállítva",
+            "buyer": "Vevő",
+            "paymentMethod": "Fizetési mód",
+            "wallet": "Egyenlegből",
+            "items": "Tétel",
+            "storage": "Raktárterület bérlése ({{type}})",
+            "shelves": "Kiosztott polcok száma: {{count}}",
+            "total": "Fizetve összesen",
+            "close": "Bezárás",
+            "status": {
+                "paid": "Fizetve",
+                "pending": "Fizetésre vár",
+                "refunded": "Visszatérítve"
+            }
+        },
+        "status": {
+            "pending": "Beszállításra vár",
+            "stored": "Betárolva",
+            "closed": "Lezárva",
+            "cancelled": "Lemondva"
+        }
     }
 }

@@ -25,6 +25,7 @@ import ConfigPage from './pages/ConfigPage';
 import CreateWareHousePage from './pages/CreateWareHousePage';
 import CreateShelfPage from './pages/CreateShelfPage';
 import EditShelfPage from './pages/EditShelfPage';
+import Booking from './pages/Booking';
 
 function App() {
     return (
@@ -101,6 +102,15 @@ function App() {
                                     <ProtectedRoute
                                         element={<EditShelfPage />}
                                         allowedRoles={['admin']}
+                                    />
+                                }
+                            />
+                            <Route
+                                path="/booking"
+                                element={
+                                    <ProtectedRoute
+                                        element={<Booking />}
+                                        allowedRoles={['user', 'admin']}
                                     />
                                 }
                             />

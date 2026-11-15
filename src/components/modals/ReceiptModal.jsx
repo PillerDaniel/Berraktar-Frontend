@@ -23,7 +23,8 @@ const ReceiptModal = ({ booking, buyerEmail, onClose }) => {
     if (!booking?.invoice) return null;
 
     const { invoice, warehouse } = booking;
-    // the first invoice pays for the booking, the later ones for extensions
+    // the first invoice pays for the booking, the later ones are extensions
+    // (positive) and shortenings (negative, money paid back)
     const invoices = booking.invoices ?? [invoice];
     const extensions = invoices.slice(1);
     const totalAmount = invoices.reduce((sum, item) => sum + item.amount, 0);
@@ -160,7 +161,9 @@ const ReceiptModal = ({ booking, buyerEmail, onClose }) => {
                                 className="flex items-baseline justify-between gap-4 mt-2 pt-2 border-t border-gray-200"
                             >
                                 <span>
-                                    {t('booking.receipt.extension')}
+                                    {extension.amount < 0
+                                        ? t('booking.receipt.shortening')
+                                        : t('booking.receipt.extension')}
                                     <span className="text-xs text-gray-500">
                                         {' '}
                                         ·{' '}

@@ -163,7 +163,8 @@
                 "pending": "Awaiting payment",
                 "refunded": "Refunded"
             },
-            "extension": "Extension"
+            "extension": "Extension",
+            "shortening": "Shortening"
         },
         "status": {
             "pending": "Awaiting delivery",
@@ -174,14 +175,17 @@
         "edit": {
             "open": "Edit",
             "title": "Edit booking",
-            "hint": "The end date of the booking can be moved later. The system calculates the price difference and deducts it from your balance.",
+            "hint": "The end date of the booking can be changed. For an extension the system deducts the difference from your balance. A booking can be shortened before its start date, and the difference is returned to your balance.",
             "newEndDate": "New end date",
             "extraDays": "Extension",
             "difference": "Difference to pay",
             "submit": "Change and pay",
             "success": "Booking updated.",
             "error": "Could not update the booking.",
-            "quoteError": "Could not calculate the difference."
+            "quoteError": "Could not calculate the difference.",
+            "fewerDays": "Shortening",
+            "refund": "Refund",
+            "submitShorten": "Change and refund"
         },
         "cancel": {
             "open": "Cancel",

@@ -161,7 +161,8 @@
                 "pending": "Fizetésre vár",
                 "refunded": "Visszatérítve"
             },
-            "extension": "Hosszabbítás"
+            "extension": "Hosszabbítás",
+            "shortening": "Rövidítés"
         },
         "status": {
             "pending": "Beszállításra vár",
@@ -172,14 +173,17 @@
         "edit": {
             "open": "Szerkesztés",
             "title": "Foglalás szerkesztése",
-            "hint": "A foglalás végdátuma későbbre módosítható. A különbözetet a rendszer számolja ki, és az egyenlegből vonja le.",
+            "hint": "A foglalás végdátuma módosítható. Hosszabbításnál a különbözetet a rendszer az egyenlegből vonja le. Rövidíteni a kezdődátum előtt lehet, ekkor a különbözet visszakerül az egyenlegre.",
             "newEndDate": "Új végdátum",
             "extraDays": "Hosszabbítás",
             "difference": "Fizetendő különbözet",
             "submit": "Módosítás és fizetés",
             "success": "A foglalás módosítva.",
             "error": "A módosítás sikertelen.",
-            "quoteError": "A különbözet kiszámítása sikertelen."
+            "quoteError": "A különbözet kiszámítása sikertelen.",
+            "fewerDays": "Rövidítés",
+            "refund": "Visszatérítés",
+            "submitShorten": "Módosítás és visszatérítés"
         },
         "cancel": {
             "open": "Lemondás",

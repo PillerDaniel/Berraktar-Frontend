@@ -15,8 +15,9 @@ const nextDay = (isoDate) => {
     return date.toISOString().slice(0, 10);
 };
 
-// Editing a booking = moving its end date later. The price difference is
-// calculated by the server and paid from the wallet.
+// Editing a booking = moving its end date. Later: the price difference is
+// paid from the wallet. Earlier (only before the booking starts): the
+// difference is refunded. The server calculates both.
 const ExtendBookingModal = ({ booking, balance, onClose, onExtended }) => {
     const { t, i18n } = useTranslation();
     const language = i18n.language?.startsWith('hu') ? 'hu' : 'en';
@@ -49,7 +50,7 @@ const ExtendBookingModal = ({ booking, balance, onClose, onExtended }) => {
         setQuote(null);
         setErrorMessage('');
 
-        if (!value || value <= booking.endDate) return;
+        if (!value || value === booking.endDate) return;
 
         setQuoting(true);
         try {
@@ -87,7 +88,12 @@ const ExtendBookingModal = ({ booking, balance, onClose, onExtended }) => {
         }
     };
 
-    const missingAmount = quote ? quote.amount - balance : 0;
+    // a booking that has not started yet can also be made shorter
+    const canShorten =
+        booking.startDate > new Date().toISOString().slice(0, 10);
+    // the server answers a shortening with negative days and amount
+    const shortening = quote ? quote.amount < 0 : false;
+    const missingAmount = quote && !shortening ? quote.amount - balance : 0;
 
     return (
         <Dialog open onClose={onClose} className="relative z-50">
@@ -134,7 +140,11 @@ const ExtendBookingModal = ({ booking, balance, onClose, onExtended }) => {
                                 type="date"
                                 name="newEndDate"
                                 value={endDate}
-                                min={nextDay(booking.endDate)}
+                                min={nextDay(
+                                    canShorten
+                                        ? booking.startDate
+                                        : booking.endDate
+                                )}
                                 onChange={handleDateChange}
                                 required
                                 className="w-full p-2.5 bg-white text-[#27374D] text-sm font-normal border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#526D82] outline-none"
@@ -150,11 +160,13 @@ const ExtendBookingModal = ({ booking, balance, onClose, onExtended }) => {
                         {quote && (
                             <dl className="grid grid-cols-[auto_1fr] gap-x-6 gap-y-1.5 p-3 bg-gray-50 border border-gray-200 rounded-lg">
                                 <dt className="text-gray-500">
-                                    {t('booking.edit.extraDays')}
+                                    {shortening
+                                        ? t('booking.edit.fewerDays')
+                                        : t('booking.edit.extraDays')}
                                 </dt>
                                 <dd className="text-right tabular-nums">
                                     {t('booking.days', {
-                                        count: quote.extraDays,
+                                        count: Math.abs(quote.extraDays),
                                     })}
                                 </dd>
 
@@ -166,10 +178,12 @@ const ExtendBookingModal = ({ booking, balance, onClose, onExtended }) => {
                                 </dd>
 
                                 <dt className="font-bold pt-2 border-t border-gray-200">
-                                    {t('booking.edit.difference')}
+                                    {shortening
+                                        ? t('booking.edit.refund')
+                                        : t('booking.edit.difference')}
                                 </dt>
                                 <dd className="text-right font-bold text-lg tabular-nums pt-2 border-t border-gray-200">
-                                    {formatMoney(quote.amount)}
+                                    {formatMoney(Math.abs(quote.amount))}
                                 </dd>
                             </dl>
                         )}
@@ -198,7 +212,9 @@ const ExtendBookingModal = ({ booking, balance, onClose, onExtended }) => {
                             ) : (
                                 <>
                                     <CreditCard size={18} weight="bold" />
-                                    {t('booking.edit.submit')}
+                                    {shortening
+                                        ? t('booking.edit.submitShorten')
+                                        : t('booking.edit.submit')}
                                 </>
                             )}
                         </button>

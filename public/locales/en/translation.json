@@ -190,7 +190,8 @@
             "keep": "Keep booking",
             "confirm": "Cancel booking",
             "success": "Booking cancelled.",
-            "error": "Could not cancel the booking."
+            "error": "Could not cancel the booking.",
+            "tooLate": "A booking can only be cancelled before its start date."
         }
     },
     "inbound": {

@@ -188,7 +188,8 @@
             "keep": "Mégsem",
             "confirm": "Foglalás lemondása",
             "success": "A foglalás lemondva.",
-            "error": "A lemondás sikertelen."
+            "error": "A lemondás sikertelen.",
+            "tooLate": "A foglalás csak a kezdődátum előtt mondható le."
         }
     },
     "inbound": {

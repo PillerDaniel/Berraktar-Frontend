@@ -254,12 +254,20 @@ const Booking = () => {
 
     const formComplete = form.startDate && form.endDate && form.pallets;
 
-    // the end date of a running booking can be moved later; a booking can be
-    // cancelled only while the goods have not arrived and it has not started
+    // the end date of a running booking can be moved later
     const canEdit = (booking) =>
         booking.status === 'pending' || booking.status === 'stored';
-    const canCancel = (booking) =>
-        booking.status === 'pending' && booking.startDate > today;
+    const canCancel = canEdit;
+
+    // a booking can be cancelled only before its start date; the date at the
+    // moment of the click decides
+    const openCancel = (booking) => {
+        if (booking.startDate <= toIsoDate(new Date())) {
+            showError(language, t('booking.cancel.tooLate'));
+            return;
+        }
+        setCancelBookingId(booking.id);
+    };
     const missingAmount = quote ? quote.totalAmount - balance : 0;
 
     return (
@@ -548,9 +556,7 @@ const Booking = () => {
                                     {canCancel(booking) && (
                                         <button
                                             type="button"
-                                            onClick={() =>
-                                                setCancelBookingId(booking.id)
-                                            }
+                                            onClick={() => openCancel(booking)}
                                             className="flex items-center gap-1.5 px-3 py-1.5 border border-red-700 text-red-700 hover:bg-red-700 hover:text-white text-xs font-medium rounded-lg transition-colors cursor-pointer"
                                         >
                                             <Trash size={14} weight="bold" />

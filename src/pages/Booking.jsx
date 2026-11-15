@@ -257,7 +257,8 @@ const Booking = () => {
     // the end date of a running booking can be moved later
     const canEdit = (booking) =>
         booking.status === 'pending' || booking.status === 'stored';
-    const canCancel = canEdit;
+    // a stored booking cannot be cancelled any more
+    const canCancel = (booking) => booking.status === 'pending';
 
     // a booking can be cancelled only before its start date; the date at the
     // moment of the click decides

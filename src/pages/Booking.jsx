@@ -36,7 +36,7 @@ const statusStyles = {
 const inputClass =
     'w-full p-2.5 bg-white text-[#27374D] text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#526D82] outline-none';
 const outlineButtonClass =
-    'flex items-center gap-1.5 px-3 py-1.5 border border-[#27374D] text-[#27374D] hover:bg-[#27374D] hover:text-white text-xs font-medium rounded-lg transition-colors cursor-pointer';
+    'flex items-center gap-1.5 px-3 py-1.5 border border-[#27374D] text-[#27374D] hover:bg-[#27374D] hover:text-white text-xs font-medium rounded-lg transition-colors cursor-pointer whitespace-nowrap';
 const primaryButtonClass =
     'flex items-center justify-center gap-1.5 px-4 py-2.5 bg-[#27374D] hover:bg-[#1e2b3c] text-white text-sm font-medium rounded-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer';
 
@@ -272,7 +272,7 @@ const Booking = () => {
     const missingAmount = quote ? quote.totalAmount - balance : 0;
 
     return (
-        <div className="max-w-3xl mx-4 md:mx-auto my-10 flex flex-col gap-6">
+        <div className="max-w-4xl mx-4 md:mx-auto my-10 flex flex-col gap-6">
             <div className="p-6 bg-white rounded-xl shadow-lg border border-gray-100">
                 <div className="flex flex-wrap items-center justify-between gap-3 mb-6 border-b border-gray-100 pb-4">
                     <div className="flex items-center gap-3">
@@ -493,9 +493,9 @@ const Booking = () => {
                         {bookings.map((booking) => (
                             <li
                                 key={booking.id}
-                                className="flex flex-wrap items-center justify-between gap-x-6 gap-y-2 p-4 bg-gray-50 border border-gray-100 rounded-lg text-sm text-[#27374D]"
+                                className="flex flex-wrap md:flex-nowrap items-center justify-between gap-x-4 gap-y-2 p-4 bg-gray-50 border border-gray-100 rounded-lg text-sm text-[#27374D]"
                             >
-                                <div>
+                                <div className="min-w-0">
                                     <p className="font-semibold">
                                         {formatDate(booking.startDate)} –{' '}
                                         {formatDate(booking.endDate)}
@@ -513,9 +513,9 @@ const Booking = () => {
                                     </p>
                                 </div>
 
-                                <div className="flex flex-wrap items-center gap-3">
+                                <div className="flex flex-wrap md:flex-nowrap md:shrink-0 items-center gap-2">
                                     {booking.invoice && (
-                                        <span className="font-bold tabular-nums">
+                                        <span className="font-bold tabular-nums whitespace-nowrap">
                                             {formatMoney(
                                                 booking.totalAmount ??
                                                     booking.invoice.amount
@@ -523,7 +523,7 @@ const Booking = () => {
                                         </span>
                                     )}
                                     <span
-                                        className={`px-2.5 py-1 rounded-full text-xs font-semibold ${statusStyles[booking.status] ?? statusStyles.closed}`}
+                                        className={`px-2.5 py-1 rounded-full text-xs font-semibold whitespace-nowrap ${statusStyles[booking.status] ?? statusStyles.closed}`}
                                     >
                                         {t(`booking.status.${booking.status}`)}
                                     </span>
@@ -558,7 +558,7 @@ const Booking = () => {
                                         <button
                                             type="button"
                                             onClick={() => openCancel(booking)}
-                                            className="flex items-center gap-1.5 px-3 py-1.5 border border-red-700 text-red-700 hover:bg-red-700 hover:text-white text-xs font-medium rounded-lg transition-colors cursor-pointer"
+                                            className="flex items-center gap-1.5 px-3 py-1.5 border border-red-700 text-red-700 hover:bg-red-700 hover:text-white text-xs font-medium rounded-lg transition-colors cursor-pointer whitespace-nowrap"
                                         >
                                             <Trash size={14} weight="bold" />
                                             {t('booking.cancel.open')}

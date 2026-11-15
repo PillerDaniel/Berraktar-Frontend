@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 
@@ -11,16 +12,20 @@ import {
     MenuItems,
 } from '@headlessui/react';
 
-import { UserCircle, SignOut, UserCircleGear } from 'phosphor-react';
+import { UserCircle, SignOut, UserCircleGear, Wallet } from 'phosphor-react';
 import { useTranslation } from 'react-i18next';
 
 import HUflag from '../assets/flags/HUflag';
 import GBflag from '../assets/flags/GBflag';
 
+import DepositModal from './modals/DepositModal';
+
 const Navbar = () => {
     const { isAuthenticated, user, logout, loading } = useAuth();
     const navigate = useNavigate();
     const { t, i18n } = useTranslation();
+
+    const [depositOpen, setDepositOpen] = useState(false);
 
     const handleLogout = async () => {
         await logout();
@@ -119,10 +124,10 @@ const Navbar = () => {
                                 <div className="hidden sm:ml-6 sm:block">
                                     <div className="flex space-x-4">
                                         <Link
-                                            to="/warehouses"
+                                            to="/inbound"
                                             className="text-gray-300 hover:bg-white/5 hover:text-white rounded-md px-3 py-2 text-sm font-medium transition-colors"
                                         >
-                                            védett
+                                            {t('navbar.inbound')}
                                         </Link>
                                     </div>
                                 </div>
@@ -227,6 +232,24 @@ const Navbar = () => {
                                                     />
                                                 </Link>
                                             </MenuItem>
+                                            {UserAccess.includes(
+                                                user?.role
+                                            ) && (
+                                                <MenuItem>
+                                                    <button
+                                                        className="flex w-full items-center justify-between px-4 py-2 text-sm text-white hover:bg-white/5 transition-colors"
+                                                        onClick={() =>
+                                                            setDepositOpen(true)
+                                                        }
+                                                    >
+                                                        {t('navbar.deposit')}
+                                                        <Wallet
+                                                            size={18}
+                                                            weight="bold"
+                                                        />
+                                                    </button>
+                                                </MenuItem>
+                                            )}
                                         </MenuItems>
                                     </Menu>
                                 ) : (
@@ -279,6 +302,15 @@ const Navbar = () => {
                                     raktáros és admin
                                 </Link>
                             )}
+                        {isAuthenticated &&
+                            WarehouseAccess.includes(user.role) && (
+                                <Link
+                                    to="/inbound"
+                                    className="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-white/5 hover:text-white"
+                                >
+                                    {t('navbar.inbound')}
+                                </Link>
+                            )}
                         {isAuthenticated && AdminAccess.includes(user.role) && (
                             <>
                                 <Link
@@ -292,6 +324,11 @@ const Navbar = () => {
                     </div>
                 </DisclosurePanel>
             )}
+
+            <DepositModal
+                open={depositOpen}
+                onClose={() => setDepositOpen(false)}
+            />
         </Disclosure>
     );
 };

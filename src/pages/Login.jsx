@@ -72,7 +72,7 @@ const Login = () => {
                     <input
                         name="email"
                         value={form.email}
-                        className="w-full bg-[#27374D] border my-3 border-white outline-none rounded-full py-2.5 px-4 mb-3"
+                        className="w-full bg-[#27374D] border my-3 border-white outline-none rounded-full py-2.5 px-4 mb-3 text-white caret-white placeholder-gray-400 autofill:[-webkit-text-fill-color:white] autofill:shadow-[inset_0_0_0_1000px_#27374D]"
                         type="email"
                         placeholder={t('login.email_placeholder')}
                         onChange={handleChange}
@@ -82,7 +82,7 @@ const Login = () => {
                     <input
                         name="password"
                         value={form.password}
-                        className="w-full bg-[#27374D] border mt-1 border-white outline-none rounded-full py-2.5 px-4 mb-6"
+                        className="w-full bg-[#27374D] border mt-1 border-white outline-none rounded-full py-2.5 px-4 mb-6 text-white caret-white placeholder-gray-400 autofill:[-webkit-text-fill-color:white] autofill:shadow-[inset_0_0_0_1000px_#27374D]"
                         type="password"
                         placeholder={t('login.password_placeholder')}
                         onChange={handleChange}

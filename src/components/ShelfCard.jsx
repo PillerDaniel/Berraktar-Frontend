@@ -62,6 +62,13 @@ const ShelfCard = ({ shelf }) => {
                 >
                     {shelf.status}
                 </span>
+                {/* same short code the inbound page shows to the warehouseman */}
+                <span
+                    className="font-mono text-xs text-gray-300"
+                    title={shelf.id}
+                >
+                    #{shelf.id.slice(0, 8)}
+                </span>
             </div>
 
             <div className="space-y-2.5 text-sm">

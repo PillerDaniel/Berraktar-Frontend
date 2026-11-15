@@ -6,7 +6,9 @@
         "profile": "Profile",
         "warehouses": "Warehouses",
         "config": "Configuration",
-        "booking": "Booking"
+        "booking": "Booking",
+        "deposit": "Top up balance",
+        "inbound": "Inbound"
     },
     "notFound": {
         "title": "404 - Az oldal nem található.",
@@ -128,7 +130,7 @@
         "days_other": "{{count}} days",
         "unitPrice": "Price per pallet per day",
         "total": "Total to pay",
-        "insufficient": "Insufficient balance: {{amount}} more is needed. Top up your balance to pay.",
+        "insufficient": "Insufficient balance: {{amount}} more is needed.",
         "pay": "Confirm and pay",
         "paySuccess": "Booking created successfully.",
         "payError": "Payment failed.",
@@ -151,7 +153,7 @@
             "buyer": "Customer",
             "paymentMethod": "Payment method",
             "wallet": "Wallet balance",
-            "items": "Item",
+            "items": "Items",
             "storage": "Warehouse space rental ({{type}})",
             "shelves": "Shelves assigned: {{count}}",
             "total": "Total paid",
@@ -160,13 +162,48 @@
                 "paid": "Paid",
                 "pending": "Awaiting payment",
                 "refunded": "Refunded"
-            }
+            },
+            "extension": "Extension"
         },
         "status": {
             "pending": "Awaiting delivery",
             "stored": "Stored",
             "closed": "Closed",
             "cancelled": "Cancelled"
+        },
+        "edit": {
+            "open": "Edit",
+            "title": "Edit booking",
+            "hint": "The end date of the booking can be moved later. The system calculates the price difference and deducts it from your balance.",
+            "newEndDate": "New end date",
+            "extraDays": "Extension",
+            "difference": "Difference to pay",
+            "submit": "Change and pay",
+            "success": "Booking updated.",
+            "error": "Could not update the booking.",
+            "quoteError": "Could not calculate the difference."
+        },
+        "cancel": {
+            "open": "Cancel",
+            "title": "Cancel booking",
+            "text": "Are you sure you want to cancel this booking? The {{amount}} you paid is returned to your balance and the reserved shelves are released.",
+            "keep": "Keep booking",
+            "confirm": "Cancel booking",
+            "success": "Booking cancelled.",
+            "error": "Could not cancel the booking."
         }
+    },
+    "inbound": {
+        "title": "Inbound",
+        "subtitle": "Bookings awaiting delivery and the shelves assigned by the system.",
+        "empty": "No bookings are awaiting delivery.",
+        "shelves": "Shelves to load",
+        "capacity": "capacity: {{count}}",
+        "putHere_one": "{{count}} pallet here",
+        "putHere_other": "{{count}} pallets here",
+        "store": "Stored",
+        "storeSuccess": "The goods have been stored.",
+        "storeError": "Could not record the storing.",
+        "loadError": "Could not load the bookings."
     }
 }

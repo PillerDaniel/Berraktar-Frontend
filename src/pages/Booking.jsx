@@ -6,9 +6,15 @@ import {
     CreditCard,
     Receipt,
     Plus,
+    PencilSimple,
+    Trash,
 } from 'phosphor-react';
 import axiosInstance from '../utils/axios';
+import { WALLET_BALANCE_EVENT } from '../utils/walletEvents';
 import ReceiptModal from '../components/modals/ReceiptModal';
+import DepositModal from '../components/modals/DepositModal';
+import ExtendBookingModal from '../components/modals/ExtendBookingModal';
+import CancelBookingModal from '../components/modals/CancelBookingModal';
 import { useAuth } from '../contexts/AuthContext';
 import { useTranslation } from 'react-i18next';
 
@@ -29,6 +35,8 @@ const statusStyles = {
 
 const inputClass =
     'w-full p-2.5 bg-white text-[#27374D] text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#526D82] outline-none';
+const outlineButtonClass =
+    'flex items-center gap-1.5 px-3 py-1.5 border border-[#27374D] text-[#27374D] hover:bg-[#27374D] hover:text-white text-xs font-medium rounded-lg transition-colors cursor-pointer';
 const primaryButtonClass =
     'flex items-center justify-center gap-1.5 px-4 py-2.5 bg-[#27374D] hover:bg-[#1e2b3c] text-white text-sm font-medium rounded-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer';
 
@@ -56,11 +64,14 @@ const Booking = () => {
     const [quoting, setQuoting] = useState(false);
     const [paying, setPaying] = useState(false);
 
-    const [depositAmount, setDepositAmount] = useState('');
-    const [depositing, setDepositing] = useState(false);
+    const [depositOpen, setDepositOpen] = useState(false);
 
     // id of the booking whose receipt is open
     const [receiptBookingId, setReceiptBookingId] = useState(null);
+    // ids of the booking being edited / cancelled
+    const [editBookingId, setEditBookingId] = useState(null);
+    const [cancelBookingId, setCancelBookingId] = useState(null);
+    const [cancelling, setCancelling] = useState(false);
 
     const today = toIsoDate(new Date());
 
@@ -106,6 +117,15 @@ const Booking = () => {
         };
 
         fetchAll();
+    }, []);
+
+    // the balance can be topped up from the user menu while this page is open
+    useEffect(() => {
+        const onBalanceChanged = (event) => setBalance(event.detail.balance);
+
+        window.addEventListener(WALLET_BALANCE_EVENT, onBalanceChanged);
+        return () =>
+            window.removeEventListener(WALLET_BALANCE_EVENT, onBalanceChanged);
     }, []);
 
     const handleChange = (e) => {
@@ -183,26 +203,44 @@ const Booking = () => {
         }
     };
 
-    const handleDeposit = async (e) => {
-        e.preventDefault();
-        setDepositing(true);
+    const handleExtended = async (data) => {
+        setEditBookingId(null);
+        setBalance(data.balance);
+        showSuccess(
+            language,
+            (language === 'hu' ? data.messageHu : data.messageEn) ||
+                t('booking.edit.success')
+        );
 
         try {
-            const response = await axiosInstance.post('/wallet/deposit', {
-                amount: Number(depositAmount),
-            });
+            await fetchBookings();
+        } catch (error) {
+            showError(language, apiMessage(error, 'booking.loadError'));
+        }
+    };
+
+    const handleCancel = async () => {
+        setCancelling(true);
+
+        try {
+            const response = await axiosInstance.post(
+                `/booking/${cancelBookingId}/cancel`
+            );
             setBalance(response.data.balance);
-            setDepositAmount('');
+            // the freed capacity changes what a displayed quote is worth
+            setQuote(null);
+            await fetchBookings();
             showSuccess(
                 language,
                 (language === 'hu'
                     ? response.data.messageHu
-                    : response.data.messageEn) || t('booking.depositSuccess')
+                    : response.data.messageEn) || t('booking.cancel.success')
             );
         } catch (error) {
-            showError(language, apiMessage(error, 'booking.depositError'));
+            showError(language, apiMessage(error, 'booking.cancel.error'));
         } finally {
-            setDepositing(false);
+            setCancelling(false);
+            setCancelBookingId(null);
         }
     };
 
@@ -215,6 +253,13 @@ const Booking = () => {
     }
 
     const formComplete = form.startDate && form.endDate && form.pallets;
+
+    // the end date of a running booking can be moved later; a booking can be
+    // cancelled only while the goods have not arrived and it has not started
+    const canEdit = (booking) =>
+        booking.status === 'pending' || booking.status === 'stored';
+    const canCancel = (booking) =>
+        booking.status === 'pending' && booking.startDate > today;
     const missingAmount = quote ? quote.totalAmount - balance : 0;
 
     return (
@@ -388,11 +433,21 @@ const Booking = () => {
                         </dl>
 
                         {missingAmount > 0 && (
-                            <p className="mt-3 text-sm text-red-700">
-                                {t('booking.insufficient', {
-                                    amount: formatMoney(missingAmount),
-                                })}
-                            </p>
+                            <div className="mt-3 flex flex-wrap items-center justify-between gap-3">
+                                <p className="text-sm text-red-700">
+                                    {t('booking.insufficient', {
+                                        amount: formatMoney(missingAmount),
+                                    })}
+                                </p>
+                                <button
+                                    type="button"
+                                    onClick={() => setDepositOpen(true)}
+                                    className={outlineButtonClass}
+                                >
+                                    <Plus size={14} weight="bold" />
+                                    {t('booking.deposit')}
+                                </button>
+                            </div>
                         )}
 
                         <button
@@ -412,43 +467,6 @@ const Booking = () => {
                         </button>
                     </div>
                 )}
-            </div>
-
-            <div className="p-6 bg-white rounded-xl shadow-lg border border-gray-100">
-                <h3 className="flex items-center gap-2 text-lg font-bold text-[#27374D] mb-3">
-                    <Wallet size={22} weight="fill" /> {t('booking.deposit')}
-                </h3>
-
-                <form
-                    onSubmit={handleDeposit}
-                    className="grid grid-cols-1 md:grid-cols-[1fr_auto] gap-3"
-                >
-                    <input
-                        type="text"
-                        inputMode="numeric"
-                        aria-label={t('booking.depositAmount')}
-                        value={depositAmount}
-                        onChange={(e) =>
-                            setDepositAmount(e.target.value.replace(/\D/g, ''))
-                        }
-                        placeholder={t('booking.depositAmount')}
-                        className={inputClass}
-                    />
-                    <button
-                        type="submit"
-                        disabled={depositing || !Number(depositAmount)}
-                        className={primaryButtonClass}
-                    >
-                        {depositing ? (
-                            <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                        ) : (
-                            <>
-                                <Plus size={18} weight="bold" />
-                                {t('booking.depositButton')}
-                            </>
-                        )}
-                    </button>
-                </form>
             </div>
 
             <div className="p-6 bg-white rounded-xl shadow-lg border border-gray-100">
@@ -486,11 +504,12 @@ const Booking = () => {
                                     </p>
                                 </div>
 
-                                <div className="flex items-center gap-3">
+                                <div className="flex flex-wrap items-center gap-3">
                                     {booking.invoice && (
                                         <span className="font-bold tabular-nums">
                                             {formatMoney(
-                                                booking.invoice.amount
+                                                booking.totalAmount ??
+                                                    booking.invoice.amount
                                             )}
                                         </span>
                                     )}
@@ -505,10 +524,37 @@ const Booking = () => {
                                             onClick={() =>
                                                 setReceiptBookingId(booking.id)
                                             }
-                                            className="flex items-center gap-1.5 px-3 py-1.5 border border-[#27374D] text-[#27374D] hover:bg-[#27374D] hover:text-white text-xs font-medium rounded-lg transition-colors cursor-pointer"
+                                            className={outlineButtonClass}
                                         >
                                             <Receipt size={14} weight="bold" />
                                             {t('booking.receipt.open')}
+                                        </button>
+                                    )}
+                                    {canEdit(booking) && (
+                                        <button
+                                            type="button"
+                                            onClick={() =>
+                                                setEditBookingId(booking.id)
+                                            }
+                                            className={outlineButtonClass}
+                                        >
+                                            <PencilSimple
+                                                size={14}
+                                                weight="bold"
+                                            />
+                                            {t('booking.edit.open')}
+                                        </button>
+                                    )}
+                                    {canCancel(booking) && (
+                                        <button
+                                            type="button"
+                                            onClick={() =>
+                                                setCancelBookingId(booking.id)
+                                            }
+                                            className="flex items-center gap-1.5 px-3 py-1.5 border border-red-700 text-red-700 hover:bg-red-700 hover:text-white text-xs font-medium rounded-lg transition-colors cursor-pointer"
+                                        >
+                                            <Trash size={14} weight="bold" />
+                                            {t('booking.cancel.open')}
                                         </button>
                                     )}
                                 </div>
@@ -524,6 +570,30 @@ const Booking = () => {
                 )}
                 buyerEmail={user?.email}
                 onClose={() => setReceiptBookingId(null)}
+            />
+
+            <ExtendBookingModal
+                key={editBookingId}
+                booking={bookings.find(
+                    (booking) => booking.id === editBookingId
+                )}
+                balance={balance}
+                onClose={() => setEditBookingId(null)}
+                onExtended={handleExtended}
+            />
+
+            <CancelBookingModal
+                booking={bookings.find(
+                    (booking) => booking.id === cancelBookingId
+                )}
+                cancelling={cancelling}
+                onClose={() => setCancelBookingId(null)}
+                onConfirm={handleCancel}
+            />
+
+            <DepositModal
+                open={depositOpen}
+                onClose={() => setDepositOpen(false)}
             />
         </div>
     );

@@ -26,6 +26,7 @@ import CreateWareHousePage from './pages/CreateWareHousePage';
 import CreateShelfPage from './pages/CreateShelfPage';
 import EditShelfPage from './pages/EditShelfPage';
 import Booking from './pages/Booking';
+import InboundPage from './pages/InboundPage';
 
 function App() {
     return (
@@ -111,6 +112,15 @@ function App() {
                                     <ProtectedRoute
                                         element={<Booking />}
                                         allowedRoles={['user', 'admin']}
+                                    />
+                                }
+                            />
+                            <Route
+                                path="/inbound"
+                                element={
+                                    <ProtectedRoute
+                                        element={<InboundPage />}
+                                        allowedRoles={['warehouseman', 'admin']}
                                     />
                                 }
                             />

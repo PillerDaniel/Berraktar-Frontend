@@ -23,6 +23,14 @@ const ReceiptModal = ({ booking, buyerEmail, onClose }) => {
     if (!booking?.invoice) return null;
 
     const { invoice, warehouse } = booking;
+    // the first invoice pays for the booking, the later ones for extensions
+    const invoices = booking.invoices ?? [invoice];
+    const extensions = invoices.slice(1);
+    const totalAmount = invoices.reduce((sum, item) => sum + item.amount, 0);
+    // a cancelled booking has every invoice refunded
+    const overallStatus = invoices.every((item) => item.status === 'refunded')
+        ? 'refunded'
+        : invoice.status;
 
     const days = Math.round(
         (new Date(`${booking.endDate}T00:00:00Z`) -
@@ -30,9 +38,8 @@ const ReceiptModal = ({ booking, buyerEmail, onClose }) => {
             MS_PER_DAY
     );
     // a booking has a single storage type, so the daily pallet price follows
-    // from the paid total
-    const pricePerPalletPerDay =
-        invoice.amount / (booking.totalPallets * days);
+    // from the paid total and the whole period
+    const pricePerPalletPerDay = totalAmount / (booking.totalPallets * days);
 
     const formatMoney = (amount) =>
         `${new Intl.NumberFormat(locale).format(amount)} Ft`;
@@ -131,29 +138,56 @@ const ReceiptModal = ({ booking, buyerEmail, onClose }) => {
                         <p className="text-xs text-gray-500 tabular-nums mt-1">
                             {t('booking.palletCount', {
                                 count: booking.totalPallets,
-                            })}{' '}
-                            × {formatMoney(pricePerPalletPerDay)} ×{' '}
-                            {t('booking.days', { count: days })}
+                            })}
+                            {/* after an extension the first invoice no
+                                longer covers the whole period */}
+                            {extensions.length === 0 && (
+                                <>
+                                    {' '}
+                                    × {formatMoney(pricePerPalletPerDay)} ×{' '}
+                                    {t('booking.days', { count: days })}
+                                </>
+                            )}
                         </p>
                         <p className="text-xs text-gray-500 mt-1">
                             {t('booking.receipt.shelves', {
                                 count: booking.shelves.length,
                             })}
                         </p>
+                        {extensions.map((extension) => (
+                            <div
+                                key={extension.id}
+                                className="flex items-baseline justify-between gap-4 mt-2 pt-2 border-t border-gray-200"
+                            >
+                                <span>
+                                    {t('booking.receipt.extension')}
+                                    <span className="text-xs text-gray-500">
+                                        {' '}
+                                        ·{' '}
+                                        {new Date(
+                                            extension.issuedAt
+                                        ).toLocaleDateString(locale)}
+                                    </span>
+                                </span>
+                                <span className="font-semibold tabular-nums whitespace-nowrap">
+                                    {formatMoney(extension.amount)}
+                                </span>
+                            </div>
+                        ))}
                     </div>
 
                     <div className="flex items-center justify-between gap-4 mt-5 pt-4 border-t border-gray-200">
                         <span
-                            className={`px-2.5 py-1 rounded-full text-xs font-semibold ${invoiceStatusStyles[invoice.status] ?? invoiceStatusStyles.pending}`}
+                            className={`px-2.5 py-1 rounded-full text-xs font-semibold ${invoiceStatusStyles[overallStatus] ?? invoiceStatusStyles.pending}`}
                         >
-                            {t(`booking.receipt.status.${invoice.status}`)}
+                            {t(`booking.receipt.status.${overallStatus}`)}
                         </span>
                         <div className="text-right">
                             <p className="text-xs text-gray-500">
                                 {t('booking.receipt.total')}
                             </p>
                             <p className="text-xl font-bold tabular-nums">
-                                {formatMoney(invoice.amount)}
+                                {formatMoney(totalAmount)}
                             </p>
                         </div>
                     </div>

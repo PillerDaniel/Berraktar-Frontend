@@ -97,7 +97,7 @@ const Register = () => {
                         required
                         value={formData.email}
                         onChange={handleChange}
-                        className="w-full p-3 bg-[#27374D] text-white placeholder-gray-400 border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#526D82] outline-none transition-all"
+                        className="w-full p-3 bg-[#27374D] text-white placeholder-gray-400 border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#526D82] outline-none transition-all caret-white autofill:[-webkit-text-fill-color:white] autofill:shadow-[inset_0_0_0_1000px_#27374D]"
                         placeholder={t('register.emailPlaceholder')}
                     />
                 </div>
@@ -113,7 +113,7 @@ const Register = () => {
                         required
                         value={formData.lastName}
                         onChange={handleChange}
-                        className="w-full p-3 bg-[#27374D] text-white placeholder-gray-400 border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#526D82] outline-none transition-all"
+                        className="w-full p-3 bg-[#27374D] text-white placeholder-gray-400 border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#526D82] outline-none transition-all caret-white autofill:[-webkit-text-fill-color:white] autofill:shadow-[inset_0_0_0_1000px_#27374D]"
                         placeholder={t('register.lastName')}
                     />
                 </div>
@@ -129,7 +129,7 @@ const Register = () => {
                         required
                         value={formData.firstName}
                         onChange={handleChange}
-                        className="w-full p-3 bg-[#27374D] text-white placeholder-gray-400 border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#526D82] outline-none transition-all"
+                        className="w-full p-3 bg-[#27374D] text-white placeholder-gray-400 border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#526D82] outline-none transition-all caret-white autofill:[-webkit-text-fill-color:white] autofill:shadow-[inset_0_0_0_1000px_#27374D]"
                         placeholder={t('register.firstName')}
                     />
                 </div>
@@ -144,7 +144,7 @@ const Register = () => {
                         required
                         value={formData.password}
                         onChange={handleChange}
-                        className="w-full p-3 bg-[#27374D] text-white placeholder-gray-400 border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#526D82] outline-none transition-all"
+                        className="w-full p-3 bg-[#27374D] text-white placeholder-gray-400 border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#526D82] outline-none transition-all caret-white autofill:[-webkit-text-fill-color:white] autofill:shadow-[inset_0_0_0_1000px_#27374D]"
                         placeholder={t('register.password')}
                     />
                 </div>
@@ -160,7 +160,7 @@ const Register = () => {
                         required
                         value={formData.passwordConfirmation}
                         onChange={handleChange}
-                        className="w-full p-3 bg-[#27374D] text-white placeholder-gray-400 border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#526D82] outline-none transition-all"
+                        className="w-full p-3 bg-[#27374D] text-white placeholder-gray-400 border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#526D82] outline-none transition-all caret-white autofill:[-webkit-text-fill-color:white] autofill:shadow-[inset_0_0_0_1000px_#27374D]"
                         placeholder={t('register.passwordConfirmation')}
                     />
                 </div>

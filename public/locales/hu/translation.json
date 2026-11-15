@@ -6,7 +6,9 @@
         "profile": "Profil",
         "warehouses": "Raktárak",
         "config": "Konfiguráció",
-        "booking": "Foglalás"
+        "booking": "Foglalás",
+        "deposit": "Egyenleg feltöltése",
+        "inbound": "Betárolás"
     },
     "notFound": {
         "title": "404 - Page not found.",
@@ -127,7 +129,7 @@
         "days": "{{count}} nap",
         "unitPrice": "Díj raklaponként, naponta",
         "total": "Fizetendő összesen",
-        "insufficient": "Nincs elég egyenleg: még {{amount}} hiányzik. Töltse fel az egyenlegét a fizetéshez.",
+        "insufficient": "Nincs elég egyenleg: még {{amount}} hiányzik.",
         "pay": "Jóváhagyás és fizetés",
         "paySuccess": "A foglalás sikeresen létrejött.",
         "payError": "A fizetés sikertelen.",
@@ -149,7 +151,7 @@
             "buyer": "Vevő",
             "paymentMethod": "Fizetési mód",
             "wallet": "Egyenlegből",
-            "items": "Tétel",
+            "items": "Tételek",
             "storage": "Raktárterület bérlése ({{type}})",
             "shelves": "Kiosztott polcok száma: {{count}}",
             "total": "Fizetve összesen",
@@ -158,13 +160,47 @@
                 "paid": "Fizetve",
                 "pending": "Fizetésre vár",
                 "refunded": "Visszatérítve"
-            }
+            },
+            "extension": "Hosszabbítás"
         },
         "status": {
             "pending": "Beszállításra vár",
             "stored": "Betárolva",
             "closed": "Lezárva",
             "cancelled": "Lemondva"
+        },
+        "edit": {
+            "open": "Szerkesztés",
+            "title": "Foglalás szerkesztése",
+            "hint": "A foglalás végdátuma későbbre módosítható. A különbözetet a rendszer számolja ki, és az egyenlegből vonja le.",
+            "newEndDate": "Új végdátum",
+            "extraDays": "Hosszabbítás",
+            "difference": "Fizetendő különbözet",
+            "submit": "Módosítás és fizetés",
+            "success": "A foglalás módosítva.",
+            "error": "A módosítás sikertelen.",
+            "quoteError": "A különbözet kiszámítása sikertelen."
+        },
+        "cancel": {
+            "open": "Lemondás",
+            "title": "Foglalás lemondása",
+            "text": "Biztosan lemondja a foglalást? A kifizetett {{amount}} visszakerül az egyenlegére, a lefoglalt polcok felszabadulnak.",
+            "keep": "Mégsem",
+            "confirm": "Foglalás lemondása",
+            "success": "A foglalás lemondva.",
+            "error": "A lemondás sikertelen."
         }
+    },
+    "inbound": {
+        "title": "Betárolás",
+        "subtitle": "Beszállításra váró foglalások és a rendszer által kiosztott polcok.",
+        "empty": "Nincs beszállításra váró foglalás.",
+        "shelves": "Ide kell pakolni",
+        "capacity": "kapacitás: {{count}}",
+        "putHere": "{{count}} raklap ide",
+        "store": "Betárolva",
+        "storeSuccess": "Az áru betárolva.",
+        "storeError": "A betárolás rögzítése sikertelen.",
+        "loadError": "Nem sikerült betölteni a foglalásokat."
     }
 }

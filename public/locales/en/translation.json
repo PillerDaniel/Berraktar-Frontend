@@ -209,6 +209,10 @@
         "store": "Stored",
         "storeSuccess": "The goods have been stored.",
         "storeError": "Could not record the storing.",
-        "loadError": "Could not load the bookings."
+        "loadError": "Could not load the bookings.",
+        "storedTitle": "Stored",
+        "storedSubtitle": "Bookings whose goods are already on the shelves.",
+        "storedEmpty": "No stored bookings.",
+        "storedOn": "Shelves"
     }
 }

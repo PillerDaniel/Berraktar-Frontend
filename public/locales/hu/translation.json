@@ -206,6 +206,10 @@
         "store": "Betárolva",
         "storeSuccess": "Az áru betárolva.",
         "storeError": "A betárolás rögzítése sikertelen.",
-        "loadError": "Nem sikerült betölteni a foglalásokat."
+        "loadError": "Nem sikerült betölteni a foglalásokat.",
+        "storedTitle": "Betárolva",
+        "storedSubtitle": "Foglalások, amelyek áruja már a polcokon van.",
+        "storedEmpty": "Nincs betárolt foglalás.",
+        "storedOn": "Polcok"
     }
 }

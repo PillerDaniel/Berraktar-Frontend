@@ -203,7 +203,7 @@
         "shelves": "Ide kell pakolni",
         "capacity": "kapacitás: {{count}}",
         "putHere": "{{count}} raklap ide",
-        "store": "Betárolva",
+        "store": "Betárolás",
         "storeSuccess": "Az áru betárolva.",
         "storeError": "A betárolás rögzítése sikertelen.",
         "loadError": "Nem sikerült betölteni a foglalásokat.",

@@ -206,7 +206,7 @@
         "capacity": "capacity: {{count}}",
         "putHere_one": "{{count}} pallet here",
         "putHere_other": "{{count}} pallets here",
-        "store": "Stored",
+        "store": "Store",
         "storeSuccess": "The goods have been stored.",
         "storeError": "Could not record the storing.",
         "loadError": "Could not load the bookings.",

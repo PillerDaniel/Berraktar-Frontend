@@ -129,6 +129,12 @@ const Navbar = () => {
                                         >
                                             {t('navbar.inbound')}
                                         </Link>
+                                        <Link
+                                            to="/outbound"
+                                            className="text-gray-300 hover:bg-white/5 hover:text-white rounded-md px-3 py-2 text-sm font-medium transition-colors"
+                                        >
+                                            {t('navbar.outbound')}
+                                        </Link>
                                     </div>
                                 </div>
                             )}
@@ -141,6 +147,12 @@ const Navbar = () => {
                                             className="text-gray-300 hover:bg-white/5 hover:text-white rounded-md px-3 py-2 text-sm font-medium transition-colors"
                                         >
                                             {t('navbar.config')}
+                                        </Link>
+                                        <Link
+                                            to="/relocation"
+                                            className="text-gray-300 hover:bg-white/5 hover:text-white rounded-md px-3 py-2 text-sm font-medium transition-colors"
+                                        >
+                                            {t('navbar.relocation')}
                                         </Link>
                                     </div>
                                 </div>
@@ -311,6 +323,23 @@ const Navbar = () => {
                                     {t('navbar.inbound')}
                                 </Link>
                             )}
+                        {isAuthenticated &&
+                            WarehouseAccess.includes(user.role) && (
+                                <Link
+                                    to="/outbound"
+                                    className="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-white/5 hover:text-white"
+                                >
+                                    {t('navbar.outbound')}
+                                </Link>
+                            )}
+                        {isAuthenticated && AdminAccess.includes(user.role) && (
+                            <Link
+                                to="/relocation"
+                                className="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-white/5 hover:text-white"
+                            >
+                                {t('navbar.relocation')}
+                            </Link>
+                        )}
                         {isAuthenticated && AdminAccess.includes(user.role) && (
                             <>
                                 <Link

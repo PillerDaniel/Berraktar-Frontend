@@ -22,14 +22,18 @@ const WareHouseCard = ({ warehouse }) => {
                     </span>
                     <span
                         className={`text-[10px] px-2.5 py-0.5 rounded-full border font-bold uppercase ${
-                            warehouse.active
-                                ? 'bg-emerald-100 text-emerald-700 border-emerald-200'
-                                : 'bg-red-100 text-red-700 border-red-200'
+                            warehouse.overstay
+                                ? 'bg-purple-100 text-purple-700 border-purple-200'
+                                : warehouse.active
+                                  ? 'bg-emerald-100 text-emerald-700 border-emerald-200'
+                                  : 'bg-red-100 text-red-700 border-red-200'
                         }`}
                     >
-                        {warehouse.active
-                            ? t('warehouse.active')
-                            : t('warehouse.inactive')}
+                        {warehouse.overstay
+                            ? t('warehouse.overstay')
+                            : warehouse.active
+                              ? t('warehouse.active')
+                              : t('warehouse.inactive')}
                     </span>
                 </div>
 

@@ -29,6 +29,8 @@ const EditWareHousePage = () => {
         address: '',
         active: true,
     });
+    // the overstay warehouse can never be opened for bookings
+    const [overstay, setOverstay] = useState(false);
 
     useEffect(() => {
         const fetchWarehouse = async () => {
@@ -43,6 +45,7 @@ const EditWareHousePage = () => {
                         address: address || '',
                         active: Boolean(active),
                     });
+                    setOverstay(Boolean(response.data.warehouse.overstay));
                 }
             } catch (error) {
                 language === 'hu'
@@ -205,15 +208,23 @@ const EditWareHousePage = () => {
                                 <span className="text-sm font-semibold text-[#27374D] block">
                                     {t('warehouse.activeStatus')}
                                 </span>
+                                {overstay && (
+                                    <span className="text-xs text-gray-500 block">
+                                        {t('warehouse.overstayLocked')}
+                                    </span>
+                                )}
                             </div>
                         </div>
 
-                        <label className="relative inline-flex items-center cursor-pointer">
+                        <label
+                            className={`relative inline-flex items-center ${overstay ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'}`}
+                        >
                             <input
                                 type="checkbox"
                                 name="active"
                                 checked={formData.active}
                                 onChange={handleChange}
+                                disabled={overstay}
                                 className="sr-only peer"
                             />
                             <div className="w-11 h-6 bg-gray-300 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-[#526D82] rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-emerald-600"></div>

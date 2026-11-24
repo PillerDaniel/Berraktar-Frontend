@@ -161,9 +161,11 @@ const ReceiptModal = ({ booking, buyerEmail, onClose }) => {
                                 className="flex items-baseline justify-between gap-4 mt-2 pt-2 border-t border-gray-200"
                             >
                                 <span>
-                                    {extension.amount < 0
-                                        ? t('booking.receipt.shortening')
-                                        : t('booking.receipt.extension')}
+                                    {extension.overstay
+                                        ? t('booking.receipt.overstay')
+                                        : extension.amount < 0
+                                          ? t('booking.receipt.shortening')
+                                          : t('booking.receipt.extension')}
                                     <span className="text-xs text-gray-500">
                                         {' '}
                                         ·{' '}

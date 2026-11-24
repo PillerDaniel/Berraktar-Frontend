@@ -8,7 +8,9 @@
         "config": "Konfiguráció",
         "booking": "Foglalás",
         "deposit": "Egyenleg feltöltése",
-        "inbound": "Betárolás"
+        "inbound": "Betárolás",
+        "outbound": "Kitárolás",
+        "relocation": "Áthelyezés"
     },
     "notFound": {
         "title": "404 - Page not found.",
@@ -81,7 +83,9 @@
         "cityPlaceholder": "Add meg a várost",
         "addressPlaceholder": "Add meg a címet",
         "countryPlaceholder": "Add meg az országot",
-        "createSubmit": "Raktár létrehozása"
+        "createSubmit": "Raktár létrehozása",
+        "overstay": "Túltárolás",
+        "overstayLocked": "A túltárolási raktár nem nyitható meg foglalásra, mindig inaktív marad."
     },
     "shelf": {
         "type": {
@@ -109,7 +113,9 @@
         "title": "Rendszer konfiguráció",
         "unitPrice": "Egységár",
         "refrigeratedMultiplier": "Hűtött szorzó",
-        "save": "Mentés"
+        "save": "Mentés",
+        "overstayMultiplier": "Túltárolási szorzó",
+        "overstayHint": "A végdátum utáni napok díja: napi ár × ennyi."
     },
     "booking": {
         "title": "Raktárterület foglalása",
@@ -162,7 +168,8 @@
                 "refunded": "Visszatérítve"
             },
             "extension": "Hosszabbítás",
-            "shortening": "Rövidítés"
+            "shortening": "Rövidítés",
+            "overstay": "Túltárolási díj"
         },
         "status": {
             "pending": "Beszállításra vár",
@@ -211,5 +218,37 @@
         "storedSubtitle": "Foglalások, amelyek áruja már a polcokon van.",
         "storedEmpty": "Nincs betárolt foglalás.",
         "storedOn": "Polcok"
+    },
+    "outbound": {
+        "title": "Kitárolás",
+        "subtitle": "Betárolt áruk kiadása és a bérlet lezárása.",
+        "empty": "Nincs betárolt áru.",
+        "takeFrom": "Innen kell levenni",
+        "endDate": "Végdátum: {{date}}",
+        "onTime": "Határidőn belül",
+        "dueToday": "Ma jár le",
+        "overdue": "{{count}} nap késés",
+        "overstayFee": "Túltárolási díj",
+        "release": "Kitárolás és lezárás",
+        "releaseWithFee": "Kitárolás, díj levonása ({{amount}})",
+        "releaseSuccess": "Az áru kitárolva, a bérlet lezárva.",
+        "releaseError": "A kitárolás sikertelen.",
+        "loadError": "Nem sikerült betölteni a betárolt árukat.",
+        "overstayWarehouse": "Túltárolási raktár"
+    },
+    "relocation": {
+        "title": "Raklapok áthelyezése",
+        "subtitle": "Egy foglalás összes raklapjának áthelyezése másik raktárba. Lejárt áru a túltárolási raktárba tehető.",
+        "empty": "Nincs aktív foglalás.",
+        "current": "Jelenlegi raktár",
+        "target": "Cél raktár",
+        "choose": "Válassz raktárat…",
+        "move": "Áthelyezés",
+        "moveSuccess": "A raklapok áthelyezve.",
+        "moveError": "Az áthelyezés sikertelen.",
+        "loadError": "Nem sikerült betölteni a foglalásokat.",
+        "overdue": "{{count}} nap késés",
+        "overstaySuffix": "(túltárolás)",
+        "noTarget": "Nincs másik raktár, ahová áthelyezhető."
     }
 }

@@ -8,7 +8,9 @@
         "config": "Configuration",
         "booking": "Booking",
         "deposit": "Top up balance",
-        "inbound": "Inbound"
+        "inbound": "Inbound",
+        "outbound": "Outbound",
+        "relocation": "Relocation"
     },
     "notFound": {
         "title": "404 - Az oldal nem található.",
@@ -81,7 +83,9 @@
         "cityPlaceholder": "Enter the city",
         "addressPlaceholder": "Enter the address",
         "countryPlaceholder": "Enter the country",
-        "createSubmit": "Create Warehouse"
+        "createSubmit": "Create Warehouse",
+        "overstay": "Overstay",
+        "overstayLocked": "The overstay warehouse cannot be opened for bookings, it always stays inactive."
     },
     "shelf": {
         "type": {
@@ -109,7 +113,9 @@
         "title": "System Configuration",
         "unitPrice": "Unit Price",
         "refrigeratedMultiplier": "Refrigerated Multiplier",
-        "save": "Save"
+        "save": "Save",
+        "overstayMultiplier": "Overstay Multiplier",
+        "overstayHint": "Days after the end date cost the daily price × this."
     },
     "booking": {
         "title": "Book warehouse space",
@@ -164,7 +170,8 @@
                 "refunded": "Refunded"
             },
             "extension": "Extension",
-            "shortening": "Shortening"
+            "shortening": "Shortening",
+            "overstay": "Overstay fee"
         },
         "status": {
             "pending": "Awaiting delivery",
@@ -214,5 +221,39 @@
         "storedSubtitle": "Bookings whose goods are already on the shelves.",
         "storedEmpty": "No stored bookings.",
         "storedOn": "Shelves"
+    },
+    "outbound": {
+        "title": "Outbound",
+        "subtitle": "Hand out stored goods and close the booking.",
+        "empty": "There are no stored goods.",
+        "takeFrom": "Take from",
+        "endDate": "End date: {{date}}",
+        "onTime": "Within the period",
+        "dueToday": "Ends today",
+        "overdue_one": "{{count}} day overdue",
+        "overdue_other": "{{count}} days overdue",
+        "overstayFee": "Overstay fee",
+        "release": "Take out and close",
+        "releaseWithFee": "Take out, charge fee ({{amount}})",
+        "releaseSuccess": "The goods have been taken out and the booking is closed.",
+        "releaseError": "Could not take out the goods.",
+        "loadError": "Could not load the stored goods.",
+        "overstayWarehouse": "Overstay warehouse"
+    },
+    "relocation": {
+        "title": "Relocate pallets",
+        "subtitle": "Move every pallet of a booking to another warehouse. Overdue goods can go to the overstay warehouse.",
+        "empty": "There are no active bookings.",
+        "current": "Current warehouse",
+        "target": "Target warehouse",
+        "choose": "Choose a warehouse…",
+        "move": "Relocate",
+        "moveSuccess": "The pallets have been moved.",
+        "moveError": "Could not move the pallets.",
+        "loadError": "Could not load the bookings.",
+        "overdue_one": "{{count}} day overdue",
+        "overdue_other": "{{count}} days overdue",
+        "overstaySuffix": "(overstay)",
+        "noTarget": "There is no other warehouse to move to."
     }
 }

@@ -27,6 +27,8 @@ import CreateShelfPage from './pages/CreateShelfPage';
 import EditShelfPage from './pages/EditShelfPage';
 import Booking from './pages/Booking';
 import InboundPage from './pages/InboundPage';
+import OutboundPage from './pages/OutboundPage';
+import RelocationPage from './pages/RelocationPage';
 
 function App() {
     return (
@@ -121,6 +123,24 @@ function App() {
                                     <ProtectedRoute
                                         element={<InboundPage />}
                                         allowedRoles={['warehouseman', 'admin']}
+                                    />
+                                }
+                            />
+                            <Route
+                                path="/outbound"
+                                element={
+                                    <ProtectedRoute
+                                        element={<OutboundPage />}
+                                        allowedRoles={['warehouseman', 'admin']}
+                                    />
+                                }
+                            />
+                            <Route
+                                path="/relocation"
+                                element={
+                                    <ProtectedRoute
+                                        element={<RelocationPage />}
+                                        allowedRoles={['admin']}
                                     />
                                 }
                             />

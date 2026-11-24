@@ -5,6 +5,7 @@ import {
     CurrencyDollar,
     Snowflake,
     FloppyDisk,
+    Timer,
 } from 'phosphor-react';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../contexts/AuthContext';
@@ -21,6 +22,7 @@ const ConfigPage = () => {
         id: '',
         unitPrice: 0,
         refrigeratedMultiplier: 0,
+        overstayMultiplier: 1.5,
     });
 
     useEffect(() => {
@@ -66,6 +68,7 @@ const ConfigPage = () => {
             const payload = {
                 unitPrice: Number(cfg.unitPrice),
                 refrigeratedMultiplier: Number(cfg.refrigeratedMultiplier),
+                overstayMultiplier: Number(cfg.overstayMultiplier),
             };
 
             const response = await axiosInstance.put(`/admin/config`, payload);
@@ -151,6 +154,26 @@ const ConfigPage = () => {
                             onChange={handleChange}
                             className="w-full p-3 bg-[#27374D] text-white placeholder-gray-400 border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#526D82] outline-none transition-all"
                         />
+                    </div>
+
+                    <div>
+                        <label className="flex items-center gap-2 text-sm font-semibold text-[#27374D] mb-2">
+                            <Timer size={18} />
+                            {t('config.overstayMultiplier')}
+                        </label>
+                        <input
+                            type="number"
+                            step="any"
+                            min="1"
+                            name="overstayMultiplier"
+                            required
+                            value={cfg.overstayMultiplier}
+                            onChange={handleChange}
+                            className="w-full p-3 bg-[#27374D] text-white placeholder-gray-400 border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#526D82] outline-none transition-all"
+                        />
+                        <p className="text-xs text-gray-500 mt-1.5">
+                            {t('config.overstayHint')}
+                        </p>
                     </div>
 
                     <div className="mt-2">

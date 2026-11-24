@@ -110,12 +110,6 @@ const Navbar = () => {
                                     >
                                         {t('navbar.booking')}
                                     </Link>
-                                    <Link
-                                        to="proba"
-                                        className="text-gray-300 hover:bg-white/5 hover:text-white rounded-md px-3 py-2 text-sm font-medium transition-colors"
-                                    >
-                                        user és admin
-                                    </Link>
                                 </div>
                             </div>
                         )}
@@ -298,12 +292,7 @@ const Navbar = () => {
                             </Link>
                         )}
                         {isAuthenticated && UserAccess.includes(user.role) && (
-                            <Link
-                                to="/proba"
-                                className="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-white/5 hover:text-white"
-                            >
-                                user és admin
-                            </Link>
+                            <></>
                         )}
                         {isAuthenticated &&
                             WarehouseAccess.includes(user.role) && (

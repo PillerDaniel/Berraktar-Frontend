@@ -39,6 +39,10 @@ const WareHousePage = () => {
 
     const [checkingAvailability, setCheckingAvailability] = useState(false);
     const [availabilityResult, setAvailabilityResult] = useState(null);
+    const [freePallets, setFreePallets] = useState(null);
+
+    // a booking cannot start in the past, so neither can the search
+    const today = new Date().toISOString().slice(0, 10);
 
     const totalCapacity =
         warehouse?.shelfs?.reduce(
@@ -117,16 +121,20 @@ const WareHousePage = () => {
             );
 
             setAvailabilityResult(Boolean(response.data?.available));
+            setFreePallets(response.data?.freePallets ?? null);
         } catch (error) {
+            // { messageHu, messageEn } or express-validator's { errors: [{ msg }] }
+            const data = error.response?.data;
+            const source = data?.errors?.[0]?.msg ?? data;
             language === 'hu'
                 ? showError(
                       language,
-                      error.response?.data?.messageHu ||
+                      source?.messageHu ||
                           'Hiba a foglalhatóság ellenőrzésekor!'
                   )
                 : showError(
                       language,
-                      error.response?.data?.messageEn ||
+                      source?.messageEn ||
                           'Failed to check warehouse availability!'
                   );
         } finally {
@@ -254,6 +262,7 @@ const WareHousePage = () => {
                             name="startDate"
                             required
                             value={queryParams.startDate}
+                            min={today}
                             max={queryParams.endDate || undefined}
                             onChange={handleQueryChange}
                             className="w-full px-3 py-2 bg-[#1e2b3c] text-white text-sm border border-white/15 rounded-lg focus:ring-2 focus:ring-[#526d82] outline-none [color-scheme:dark]"
@@ -270,7 +279,7 @@ const WareHousePage = () => {
                             name="endDate"
                             required
                             value={queryParams.endDate}
-                            min={queryParams.startDate || undefined}
+                            min={queryParams.startDate || today}
                             onChange={handleQueryChange}
                             className="w-full px-3 py-2 bg-[#1e2b3c] text-white text-sm border border-white/15 rounded-lg focus:ring-2 focus:ring-[#526d82] outline-none [color-scheme:dark]"
                         />
@@ -350,10 +359,9 @@ const WareHousePage = () => {
                                     className="text-emerald-400 shrink-0"
                                 />
                                 <span>
-                                    {t(
-                                        'warehouse.availableSuccess',
-                                        `Van szabad kapacitás (${queryParams.palletCount} db raklap) a kiválasztott időszakban!`
-                                    )}
+                                    {t('warehouse.availableSuccess', {
+                                        count: Number(queryParams.palletCount),
+                                    })}
                                 </span>
                             </>
                         ) : (
@@ -364,10 +372,10 @@ const WareHousePage = () => {
                                     className="text-red-400 shrink-0"
                                 />
                                 <span>
-                                    {t(
-                                        'warehouse.availableFail',
-                                        `Nincs elegendő szabad kapacitás (${queryParams.palletCount} db raklap) a kiválasztott időszakban.`
-                                    )}
+                                    {t('warehouse.availableFail', {
+                                        count: Number(queryParams.palletCount),
+                                        free: freePallets ?? 0,
+                                    })}
                                 </span>
                             </>
                         )}

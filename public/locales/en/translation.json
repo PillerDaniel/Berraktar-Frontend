@@ -85,7 +85,15 @@
         "countryPlaceholder": "Enter the country",
         "createSubmit": "Create Warehouse",
         "overstay": "Overstay",
-        "overstayLocked": "The overstay warehouse cannot be opened for bookings, it always stays inactive."
+        "overstayLocked": "The overstay warehouse cannot be opened for bookings, it always stays inactive.",
+        "startDate": "Start date",
+        "endDate": "End date",
+        "palletCount": "Pallets",
+        "searchAvailability": "Check",
+        "availableSuccess_one": "There is free capacity for {{count}} pallet in the selected period!",
+        "availableSuccess_other": "There is free capacity for {{count}} pallets in the selected period!",
+        "availableFail_one": "Not enough free capacity for {{count}} pallet in the selected period. Free places: {{free}}.",
+        "availableFail_other": "Not enough free capacity for {{count}} pallets in the selected period. Free places: {{free}}."
     },
     "shelf": {
         "type": {

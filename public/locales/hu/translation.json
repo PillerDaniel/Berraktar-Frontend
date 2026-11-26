@@ -85,7 +85,13 @@
         "countryPlaceholder": "Add meg az országot",
         "createSubmit": "Raktár létrehozása",
         "overstay": "Túltárolás",
-        "overstayLocked": "A túltárolási raktár nem nyitható meg foglalásra, mindig inaktív marad."
+        "overstayLocked": "A túltárolási raktár nem nyitható meg foglalásra, mindig inaktív marad.",
+        "startDate": "Kezdő dátum",
+        "endDate": "Végdátum",
+        "palletCount": "Raklap (db)",
+        "searchAvailability": "Ellenőrzés",
+        "availableSuccess": "Van szabad kapacitás ({{count}} db raklap) a kiválasztott időszakban!",
+        "availableFail": "Nincs elegendő szabad kapacitás ({{count}} db raklap) a kiválasztott időszakban. Szabad hely: {{free}} raklap."
     },
     "shelf": {
         "type": {

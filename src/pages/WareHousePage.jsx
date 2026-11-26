@@ -7,9 +7,12 @@ import {
     ArrowLeft,
     Package,
     Snowflake,
-    Cube,
     Stack,
     Pencil,
+    CalendarBlank,
+    MagnifyingGlass,
+    CheckCircle,
+    XCircle,
 } from 'phosphor-react';
 import axiosInstance from '../utils/axios';
 import { useAuth } from '../contexts/AuthContext';
@@ -18,15 +21,24 @@ import { useTranslation } from 'react-i18next';
 import ShelfCard from '../components/ShelfCard';
 
 const WareHousePage = () => {
-    const { user, isAuthenticated } = useAuth();
+    const { user, isAuthenticated, showError } = useAuth();
     const { id } = useParams();
     const navigate = useNavigate();
-    const { showError } = useAuth();
     const { t, i18n } = useTranslation();
     const language = i18n.language?.startsWith('hu') ? 'hu' : 'en';
 
     const [warehouse, setWarehouse] = useState(null);
     const [loading, setLoading] = useState(true);
+
+    const [queryParams, setQueryParams] = useState({
+        startDate: '',
+        endDate: '',
+        type: 'none',
+        palletCount: '1',
+    });
+
+    const [checkingAvailability, setCheckingAvailability] = useState(false);
+    const [availabilityResult, setAvailabilityResult] = useState(null);
 
     const totalCapacity =
         warehouse?.shelfs?.reduce(
@@ -62,6 +74,65 @@ const WareHousePage = () => {
             fetchWarehouseDetails();
         }
     }, [id]);
+
+    const handleQueryChange = (e) => {
+        const { name, value } = e.target;
+        setQueryParams((prev) => ({
+            ...prev,
+            [name]: name === 'palletCount' ? value.replace(/\D/g, '') : value,
+        }));
+        if (availabilityResult !== null) {
+            setAvailabilityResult(null);
+        }
+    };
+
+    const handleSearchSubmit = async (e) => {
+        e.preventDefault();
+
+        const pallets = Number(queryParams.palletCount);
+
+        if (!queryParams.startDate || !queryParams.endDate || pallets <= 0) {
+            showError(
+                language,
+                language === 'hu'
+                    ? 'Kérlek add meg a dátumokat és a raklapok számát (legalább 1)!'
+                    : 'Please select dates and pallet count (at least 1)!'
+            );
+            return;
+        }
+
+        setCheckingAvailability(true);
+        setAvailabilityResult(null);
+
+        try {
+            const response = await axiosInstance.post(
+                '/warehouse/availability',
+                {
+                    id,
+                    startDate: queryParams.startDate,
+                    endDate: queryParams.endDate,
+                    type: queryParams.type,
+                    palletCount: pallets,
+                }
+            );
+
+            setAvailabilityResult(Boolean(response.data?.available));
+        } catch (error) {
+            language === 'hu'
+                ? showError(
+                      language,
+                      error.response?.data?.messageHu ||
+                          'Hiba a foglalhatóság ellenőrzésekor!'
+                  )
+                : showError(
+                      language,
+                      error.response?.data?.messageEn ||
+                          'Failed to check warehouse availability!'
+                  );
+        } finally {
+            setCheckingAvailability(false);
+        }
+    };
 
     if (loading) {
         return (
@@ -141,7 +212,7 @@ const WareHousePage = () => {
                     </span>
                 </div>
 
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-sm text-gray-200">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-sm text-gray-200 pb-5 border-b border-white/15">
                     <div className="flex items-center gap-2">
                         <MapPin size={18} className="text-[#9DB2BF] shrink-0" />
                         <span>{warehouse.address}</span>
@@ -152,7 +223,7 @@ const WareHousePage = () => {
                             className="text-[#9DB2BF] shrink-0"
                         />
                         <span>
-                            {t('warehouse.totalShelfs')}
+                            {t('warehouse.totalShelfs')}{' '}
                             <strong className="text-white">
                                 {warehouse.shelfs?.length ?? 0}
                             </strong>
@@ -161,13 +232,147 @@ const WareHousePage = () => {
                     <div className="flex items-center gap-2">
                         <Stack size={18} className="text-[#9DB2BF] shrink-0" />
                         <span>
-                            {t('warehouse.totalCapacity')}
+                            {t('warehouse.totalCapacity')}{' '}
                             <strong className="text-white">
                                 {totalCapacity}
                             </strong>
                         </span>
                     </div>
                 </div>
+
+                <form
+                    onSubmit={handleSearchSubmit}
+                    className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 pt-5 items-end"
+                >
+                    <div>
+                        <label className="flex items-center gap-1.5 text-xs font-semibold text-[#9DB2BF] mb-1.5">
+                            <CalendarBlank size={15} weight="bold" />
+                            {t('warehouse.startDate', 'Kezdő dátum')}
+                        </label>
+                        <input
+                            type="date"
+                            name="startDate"
+                            required
+                            value={queryParams.startDate}
+                            max={queryParams.endDate || undefined}
+                            onChange={handleQueryChange}
+                            className="w-full px-3 py-2 bg-[#1e2b3c] text-white text-sm border border-white/15 rounded-lg focus:ring-2 focus:ring-[#526d82] outline-none [color-scheme:dark]"
+                        />
+                    </div>
+
+                    <div>
+                        <label className="flex items-center gap-1.5 text-xs font-semibold text-[#9DB2BF] mb-1.5">
+                            <CalendarBlank size={15} weight="bold" />
+                            {t('warehouse.endDate', 'Végdátum')}
+                        </label>
+                        <input
+                            type="date"
+                            name="endDate"
+                            required
+                            value={queryParams.endDate}
+                            min={queryParams.startDate || undefined}
+                            onChange={handleQueryChange}
+                            className="w-full px-3 py-2 bg-[#1e2b3c] text-white text-sm border border-white/15 rounded-lg focus:ring-2 focus:ring-[#526d82] outline-none [color-scheme:dark]"
+                        />
+                    </div>
+
+                    <div>
+                        <label className="flex items-center gap-1.5 text-xs font-semibold text-[#9DB2BF] mb-1.5">
+                            <Snowflake size={15} weight="bold" />
+                            {t('warehouse.typeLabel', 'Típus')}
+                        </label>
+                        <select
+                            name="type"
+                            value={queryParams.type}
+                            onChange={handleQueryChange}
+                            className="w-full px-3 py-2 bg-[#1e2b3c] text-white text-sm border border-white/15 rounded-lg focus:ring-2 focus:ring-[#526d82] outline-none cursor-pointer"
+                        >
+                            <option value="none">
+                                {t('warehouse.type.none', 'Sima')}
+                            </option>
+                            <option value="refrigerated">
+                                {t('warehouse.type.refrigerated', 'Hűtött')}
+                            </option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label className="flex items-center gap-1.5 text-xs font-semibold text-[#9DB2BF] mb-1.5">
+                            <Stack size={15} weight="bold" />
+                            {t('warehouse.palletCount', 'Raklap (db)')}
+                        </label>
+                        <input
+                            type="text"
+                            inputMode="numeric"
+                            name="palletCount"
+                            required
+                            value={queryParams.palletCount}
+                            onChange={handleQueryChange}
+                            placeholder="1"
+                            className="w-full px-3 py-2 bg-[#1e2b3c] text-white text-sm border border-white/15 rounded-lg focus:ring-2 focus:ring-[#526d82] outline-none"
+                        />
+                    </div>
+
+                    <div className="sm:col-span-2 lg:col-span-1">
+                        <button
+                            type="submit"
+                            disabled={checkingAvailability}
+                            className="w-full inline-flex items-center justify-center gap-2 px-4 py-2 bg-[#526d82] hover:bg-[#415667] disabled:opacity-60 text-white text-sm font-semibold rounded-lg transition-colors cursor-pointer"
+                        >
+                            {checkingAvailability ? (
+                                <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                            ) : (
+                                <>
+                                    <MagnifyingGlass size={16} weight="bold" />
+                                    {t(
+                                        'warehouse.searchAvailability',
+                                        'Ellenőrzés'
+                                    )}
+                                </>
+                            )}
+                        </button>
+                    </div>
+                </form>
+
+                {availabilityResult !== null && (
+                    <div
+                        className={`mt-4 p-3 rounded-lg border flex items-center gap-2.5 text-sm font-medium ${
+                            availabilityResult
+                                ? 'bg-emerald-500/15 border-emerald-400/30 text-emerald-200'
+                                : 'bg-red-500/15 border-red-400/30 text-red-200'
+                        }`}
+                    >
+                        {availabilityResult ? (
+                            <>
+                                <CheckCircle
+                                    size={20}
+                                    weight="bold"
+                                    className="text-emerald-400 shrink-0"
+                                />
+                                <span>
+                                    {t(
+                                        'warehouse.availableSuccess',
+                                        `Van szabad kapacitás (${queryParams.palletCount} db raklap) a kiválasztott időszakban!`
+                                    )}
+                                </span>
+                            </>
+                        ) : (
+                            <>
+                                <XCircle
+                                    size={20}
+                                    weight="bold"
+                                    className="text-red-400 shrink-0"
+                                />
+                                <span>
+                                    {t(
+                                        'warehouse.availableFail',
+                                        `Nincs elegendő szabad kapacitás (${queryParams.palletCount} db raklap) a kiválasztott időszakban.`
+                                    )}
+                                </span>
+                            </>
+                        )}
+                    </div>
+                )}
             </div>
 
             <div>

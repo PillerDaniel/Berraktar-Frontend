@@ -60,7 +60,7 @@ const ShelfCard = ({ shelf }) => {
                         shelf.status
                     )}`}
                 >
-                    {shelf.status}
+                    {t(`shelf.status.${shelf.status}`, shelf.status)}
                 </span>
                 {/* same short code the inbound page shows to the warehouseman */}
                 <span

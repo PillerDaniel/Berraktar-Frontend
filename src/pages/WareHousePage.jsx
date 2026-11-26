@@ -230,8 +230,8 @@ const WareHousePage = () => {
                             size={18}
                             className="text-[#9DB2BF] shrink-0"
                         />
-                        <span>
-                            {t('warehouse.totalShelfs')}{' '}
+                        <span className="flex items-center gap-1">
+                            {t('warehouse.totalShelfs')}
                             <strong className="text-white">
                                 {warehouse.shelfs?.length ?? 0}
                             </strong>
@@ -239,8 +239,8 @@ const WareHousePage = () => {
                     </div>
                     <div className="flex items-center gap-2">
                         <Stack size={18} className="text-[#9DB2BF] shrink-0" />
-                        <span>
-                            {t('warehouse.totalCapacity')}{' '}
+                        <span className="flex items-center gap-1">
+                            {t('warehouse.totalCapacity')}
                             <strong className="text-white">
                                 {totalCapacity}
                             </strong>

@@ -109,7 +109,8 @@
         "statusLabel": "Állapot:",
         "status": {
             "active": "Aktív",
-            "unused": "Használaton kívüli"
+            "unused": "Használatlan",
+            "inactive": "Inaktív"
         },
         "createSubmit": "Polc létrehozása",
         "edit": "Szerkesztés",

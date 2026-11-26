@@ -111,7 +111,8 @@
         "statusLabel": "Status:",
         "status": {
             "active": "Active",
-            "unused": "Inactive"
+            "unused": "Unused",
+            "inactive": "Inactive"
         },
         "createSubmit": "Create Shelf",
         "edit": "Edit",
